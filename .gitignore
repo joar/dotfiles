@@ -1,0 +1,9 @@
+# This is the .gitignore for the git repository ~/dotfiles.git
+
+# Ignore everything by default
+*
+!/.gitignore
+!/.vimrc
+!/.emacs.d/init.el
+!/.config/fish/abbreviations.fish
+
