@@ -2,6 +2,7 @@
 
 # Ignore everything by default
 *
+!/README.org
 !/.gitignore
 !/.vimrc
 !/.emacs.d/init.el

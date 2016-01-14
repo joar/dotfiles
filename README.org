@@ -1,0 +1,26 @@
+* dotfiles
+  A git setup for dotfiles, with my dotfiles.
+** Setup
+   to set up this kind of repository, run
+#+BEGIN_SRC bash
+git --git-dir ~/dotfiles.git --work-tree ~
+#+END_SRC
+
+** Executing git commands
+   There are a few alternatives
+*** Using GIT_DIR
+    #+BEGIN_SRC sh
+      env GIT_DIR=~/dotfiles.git git status
+      # or
+      export GIT_DIR=~/dotfiles.git
+      git status
+    #+END_SRC
+*** Using --git-dir
+    #+BEGIN_SRC sh
+      git --git-dir ~/dotfiles.git status
+    #+END_SRC
+*** Using working directory
+    #+BEGIN_SRC sh
+      cd ~/dotfiles.git
+      git status    
+    #+END_SRC
