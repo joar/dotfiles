@@ -24,111 +24,6 @@
     (package-install package)))
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes
-   (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
- '(inhibit-startup-screen t)
- '(org-latex-default-class "djcb-org-article")
- '(solarized-use-variable-pitch nil)
- '(tool-bar-mode nil))
-
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (progn
-	      (load-theme 'solarized-light t))))
-
-;; -------------------------------------
-;; -- PDF
-;; -------------------------------------
-;; 'djcb-org-article' for export org documents to the LaTex 'article', using
-;; XeTeX and some fancy fonts; requires XeTeX (see org-latex-to-pdf-process)
-;; -----------------------------------------------------------------------------
-;; http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html
-;; http://comments.gmane.org/gmane.emacs.orgmode/40221
-;; -----------------------------------------------------------------------------
-;; Install Packages:
-;; + texlive-all  
-;; + texlive-xetex
-;; + ttf-sil-gentium
-;; + ttf-sil-gentium-basic
-;; + ttf-sil-charis
-;; + ttf-dejavu
-;; -----------------------------------------------------------------------------
-;; Make sure to include the latex class in you header:
-;; #+LaTeX_CLASS: djcb-org-article
-;; -----------------------------------------------------------------------------
-(eval-after-load 'org-export-latex
-  '(progn
-     (add-to-list 'org-export-latex-classes
-		  '("djcb-org-article"
-		    "\\documentclass[11pt,a4paper]{article}
-\\usepackage{minted}
-\\usepackage{minted}
-\\usemintedstyle{solarized}
-\\newminted{common-lisp}{fontsize=10}
-\\usepackage[T1]{fontenc}
-\\usepackage{hyperref}
-\\usepackage{fontspec}
-\\usepackage{graphicx}
-
-\\defaultfontfeatures{Mapping=tex-text}
-\\setromanfont{Gentium}
-\\setromanfont [BoldFont={Gentium Basic Bold},
-                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
-\\setsansfont{Charis SIL}
-\\setmonofont{Inconsolata}
-\\usepackage{geometry}
-\\geometry{a4paper, textwidth=16.5cm, textheight=26cm,
-           marginparsep=7pt, marginparwidth=.6in}
-\\pagestyle{empty}
-
-% Fix minted lineno size
-\\renewcommand{\\theFancyVerbLine}{\\sffamily
-    \\textcolor[rgb]{0,0,0}{\\scriptsize
-        \\oldstylenums{\\arabic{FancyVerbLine}}
-    }
-}
-
-\\title{}
- [NO-DEFAULT-PACKAGES]
- [NO-PACKAGES]"
-		    ("\\section{%s}" . "\\section*{%s}")
-		    ("\\subsection{%s}" . "\\subsection*{%s}")
-		    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-		    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
-
-;; -----------------------------------------------------------------------------
-;; Added Syntax Highlighting Support
-;; http://orgmode.org/worg/org-tutorials/org-latex-export.html
-;; #+LaTeX_HEADER: \usepackage{minted}
-;; #+LaTeX_HEADER: \usemintedstyle{emacs}
-;; #+LaTeX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
-;; -----------------------------------------------------------------------------
-;; Install Packages:
-;; + python-pygments
-;; -----------------------------------------------------------------------------
-(setq org-src-fontify-natively t)
-(setq org-export-latex-listings 'minted)
-(setq org-export-latex-custom-lang-environments
-      '(
-	(emacs-lisp "common-lispcode")
-	))
-(setq org-export-latex-minted-options
-      '(("frame" "lines")
-	("linenos" "")
-	("breaklines" "true")))
-(setq org-latex-to-pdf-process 
-      '("xelatex --shell-escape --interaction nonstopmode --output-directory %o %f"
-	"xelatex --shell-escape --interaction nonstopmode --output-directory %o %f")) ;; for multiple passes
-
-
 ;; org-trello
 ;; from http://stackoverflow.com/a/13946304/202522
 (defvar auto-minor-mode-alist ()
@@ -160,6 +55,121 @@ the checking happens for all pairs in auto-minor-mode-alist"
 
 ;; Initialize evil-mode
 (evil-mode 1)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (solarized-light)))
+ '(custom-safe-themes
+   (quote
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(solarized-use-variable-pitch nil)
+ '(inhibit-startup-screen t)
+ '(org-latex-classes
+   (quote
+    (("article" "\\documentclass[11pt]{article}"
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+     ("report" "\\documentclass[11pt]{report}"
+      ("\\part{%s}" . "\\part*{%s}")
+      ("\\chapter{%s}" . "\\chapter*{%s}")
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+     ("book" "\\documentclass[11pt]{book}"
+      ("\\part{%s}" . "\\part*{%s}")
+      ("\\chapter{%s}" . "\\chapter*{%s}")
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+     ;; -------------------------------------
+     ;; -- PDF
+     ;; -------------------------------------
+     ;; 'djcb-org-article' for export org documents to the LaTex 'article', using
+     ;; XeTeX and some fancy fonts; requires XeTeX (see org-latex-to-pdf-process)
+     ;; -----------------------------------------------------------------------------
+     ;; http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html
+     ;; http://comments.gmane.org/gmane.emacs.orgmode/40221
+     ;; -----------------------------------------------------------------------------
+     ;; Install Packages:
+     ;; + texlive-all  
+     ;; + texlive-xetex
+     ;; + ttf-sil-gentium
+     ;; + ttf-sil-gentium-basic
+     ;; + ttf-sil-charis
+     ;; + ttf-dejavu
+     ;; -----------------------------------------------------------------------------
+     ;; Make sure to include the latex class in you header:
+     ;; #+LaTeX_CLASS: djcb-org-article
+     ;; -----------------------------------------------------------------------------
+    ("djcb-org-article" "\\documentclass[11pt,a4paper]{article}
+\\usepackage{minted}
+\\usepackage{minted}
+\\usemintedstyle{solarized}
+\\newminted{common-lisp}{fontsize=10}
+\\usepackage[T1]{fontenc}
+\\usepackage{hyperref}
+\\usepackage{fontspec}
+\\usepackage{graphicx}
+
+\\defaultfontfeatures{Mapping=tex-text}
+\\setromanfont{Gentium}
+\\setromanfont [BoldFont={Gentium Basic Bold},
+                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
+\\setsansfont{Charis SIL}
+\\setmonofont{Inconsolata}
+\\usepackage{geometry}
+\\geometry{a4paper, textwidth=16.5cm, textheight=26cm,
+           marginparsep=7pt, marginparwidth=.6in}
+\\pagestyle{empty}
+
+% Fix minted lineno size
+\\renewcommand{\\theFancyVerbLine}{\\sffamily
+    \\textcolor[rgb]{0,0,0}{\\scriptsize
+        \\oldstylenums{\\arabic{FancyVerbLine}}
+    }
+}
+
+\\title{}
+ [NO-DEFAULT-PACKAGES]
+ [NO-PACKAGES]"
+                    ("\\section{%s}" . "\\section*{%s}")
+                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
+ '(org-latex-default-class "djcb-org-article")
+ ;; -----------------------------------------------------------------------------
+ ;; Added Syntax Highlighting Support
+ ;; http://orgmode.org/worg/org-tutorials/org-latex-export.html
+ ;; #+LaTeX_HEADER: \usepackage{minted}
+ ;; #+LaTeX_HEADER: \usemintedstyle{emacs}
+ ;; #+LaTeX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
+ ;; -----------------------------------------------------------------------------
+ ;; Install Packages:
+ ;; + python-pygments
+ ;; -----------------------------------------------------------------------------
+ '(org-latex-listings (quote minted))
+ '(org-latex-minted-options
+   (quote
+    (("breaklines" "true")
+     ("linenos" "")
+     ("frame" "lines"))))
+ '(org-src-fontify-natively t)
+ '(org-latex-pdf-process
+   (quote
+    ("xelatex --shell-escape --interaction nonstopmode -output-directory %o %f" "xelatex --shell-escape --interaction nonstopmode -output-directory %o %f" "xelatex --shell-escape --interaction nonstopmode -output-directory %o %f")))
+ '(tool-bar-mode nil))
+
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (progn
+	      (load-theme 'solarized-light t))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
