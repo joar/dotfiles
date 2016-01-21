@@ -4,7 +4,10 @@
 *
 !/README.org
 !/.gitignore
+!/.gitexcludes
 !/.vimrc
 !/.emacs.d/init.el
 !/.config/fish/abbreviations.fish
+!/.config/fish/functions
+!/.config/fish/completions
 

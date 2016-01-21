@@ -1,0 +1,6 @@
+/.idea
+/.venv
+__pycache__
+/scratch
+*.py[co]
+*.egg-info
