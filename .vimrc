@@ -129,6 +129,14 @@ nnoremap <leader>b :buffers<CR>:buffer<Space>
 cnoreabbrev W w
 cnoreabbrev Wq wq
 
+" Ctrl-{a,c,v} stand-in
+" Copy register " to * and +
+nnoremap <a-y> :let @*=@"\|let @+=@"<cr>
+" Map visual mode <a-y> to a yank and then <a-y> in normal mode
+vmap <a-y> y<a-y>
+" Map insert mode <a-r> to a paste from system clipboard
+inoremap <a-r> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
+
 """ Helper functions
 function! ChompedSystem( ... )
     return substitute(call('system', a:000), '\n\+$', '', '')
