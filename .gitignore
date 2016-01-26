@@ -7,6 +7,7 @@
 !/.gitexcludes
 !/.vimrc
 !/.emacs.d/init.el
+!/.tmux.conf
 # Managed separately
 #!/.config/fish
 
