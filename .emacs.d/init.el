@@ -54,7 +54,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (add-hook 'find-file-hook 'enable-minor-mode-based-on-extension)
 
 ;; Initialize evil-mode
-(evil-mode 1)
+;; (evil-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -90,13 +90,11 @@ the checking happens for all pairs in auto-minor-mode-alist"
      ;; -------------------------------------
      ;; -- PDF
      ;; -------------------------------------
-     ;; 'djcb-org-article' for export org documents to the LaTex 'article', using
-     ;; XeTeX and some fancy fonts; requires XeTeX (see org-latex-to-pdf-process)
+     ;; 'org-article' custom setup for nice code blocks and fonts.
      ;; -----------------------------------------------------------------------------
-     ;; http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html
      ;; http://comments.gmane.org/gmane.emacs.orgmode/40221
      ;; -----------------------------------------------------------------------------
-     ;; Install Packages:
+     ;; Ubuntu Packages:
      ;; + texlive-all  
      ;; + texlive-xetex
      ;; + ttf-sil-gentium
@@ -104,29 +102,22 @@ the checking happens for all pairs in auto-minor-mode-alist"
      ;; + ttf-sil-charis
      ;; + ttf-dejavu
      ;; -----------------------------------------------------------------------------
-     ;; Make sure to include the latex class in you header:
-     ;; #+LaTeX_CLASS: djcb-org-article
-     ;; -----------------------------------------------------------------------------
-    ("djcb-org-article" "\\documentclass[11pt,a4paper]{article}
+     ("org-article" "\\documentclass[11pt,a4paper]{scrartcl}
 \\usepackage{minted}
-\\usepackage{minted}
-\\usemintedstyle{solarized}
+\\usemintedstyle{solarizedlight}
 \\newminted{common-lisp}{fontsize=10}
-\\usepackage[T1]{fontenc}
+%\\usepackage[T1]{fontenc}
 \\usepackage{hyperref}
 \\usepackage{fontspec}
 \\usepackage{graphicx}
 
 \\defaultfontfeatures{Mapping=tex-text}
+
 \\setromanfont{Gentium}
 \\setromanfont [BoldFont={Gentium Basic Bold},
                 ItalicFont={Gentium Basic Italic}]{Gentium Basic}
 \\setsansfont{Charis SIL}
 \\setmonofont{Inconsolata}
-\\usepackage{geometry}
-\\geometry{a4paper, textwidth=16.5cm, textheight=26cm,
-           marginparsep=7pt, marginparwidth=.6in}
-\\pagestyle{empty}
 
 % Fix minted lineno size
 \\renewcommand{\\theFancyVerbLine}{\\sffamily
@@ -138,12 +129,12 @@ the checking happens for all pairs in auto-minor-mode-alist"
 \\title{}
  [NO-DEFAULT-PACKAGES]
  [NO-PACKAGES]"
-                    ("\\section{%s}" . "\\section*{%s}")
-                    ("\\subsection{%s}" . "\\subsection*{%s}")
-                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
- '(org-latex-default-class "djcb-org-article")
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
+ '(org-latex-default-class "org-article")
  ;; -----------------------------------------------------------------------------
  ;; Added Syntax Highlighting Support
  ;; http://orgmode.org/worg/org-tutorials/org-latex-export.html
@@ -163,7 +154,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
  '(org-src-fontify-natively t)
  '(org-latex-pdf-process
    (quote
-    ("xelatex --shell-escape --interaction nonstopmode -output-directory %o %f" "xelatex --shell-escape --interaction nonstopmode -output-directory %o %f" "xelatex --shell-escape --interaction nonstopmode -output-directory %o %f")))
+    ("latexmk -xelatex --shell-escape --output-directory %o %f")))
  '(tool-bar-mode nil))
 
 (add-hook 'after-init-hook
