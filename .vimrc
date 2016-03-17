@@ -5,6 +5,7 @@ set nocompatible
 call plug#begin('~/.vim/bundles')
 
 " From joar
+Plug 'rust-lang/rust.vim'
 Plug 'vim-scripts/Unicode-RST-Tables'
 Plug 'elzr/vim-json'
 Plug 'motemen/git-vim'
@@ -74,8 +75,16 @@ endif
 " IO
 set autoread
 set directory-=.
-set undofile
-set undodir=~/.tmp
+
+" Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let undo_dir = expand('~/.vimundo')
+    " Create undo_dir if it doesn't exist
+    call system('mkdir ' . undo_dir)
+    " Save undo history in undo_dir
+    execute "set undodir=".undo_dir
+    set undofile
+endif 
 
 " Search
 set ignorecase
