@@ -2,13 +2,13 @@
 
 # Ignore everything by default
 *
-!/README.org
-!/.gitignore
-!/.gitexcludes
-!/.vimrc
-!/.emacs.d/init.el
-!/.tmux.conf
-!/texmf/tex/latex/base/org-article.cls
+!../README.org
+!../.gitignore
+!../.gitexcludes
+!../.vimrc
+!../.emacs.d/init.el
+!../.tmux.conf
+!../texmf/tex/latex/base/org-article.cls
 # Managed separately
 #!/.config/fish
 

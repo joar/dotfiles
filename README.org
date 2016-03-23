@@ -2,9 +2,12 @@
   A git setup for dotfiles, with my dotfiles.
 ** Setup
    to set up this kind of repository, run
+
 #+BEGIN_SRC bash
 git --git-dir ~/dotfiles.git --work-tree ~
 #+END_SRC
+   
+   then cr
 
 ** Executing git commands
    There are a few alternatives

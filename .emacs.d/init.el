@@ -69,25 +69,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
  '(inhibit-startup-screen t)
  '(org-latex-classes
    (quote
-    (("article" "\\documentclass[11pt]{article}"
-      ("\\section{%s}" . "\\section*{%s}")
-      ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-      ("\\paragraph{%s}" . "\\paragraph*{%s}")
-      ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-     ("report" "\\documentclass[11pt]{report}"
-      ("\\part{%s}" . "\\part*{%s}")
-      ("\\chapter{%s}" . "\\chapter*{%s}")
-      ("\\section{%s}" . "\\section*{%s}")
-      ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-     ("book" "\\documentclass[11pt]{book}"
-      ("\\part{%s}" . "\\part*{%s}")
-      ("\\chapter{%s}" . "\\chapter*{%s}")
-      ("\\section{%s}" . "\\section*{%s}")
-      ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-     ;; -------------------------------------
+    (;; -------------------------------------
      ;; -- PDF
      ;; -------------------------------------
      ;; 'org-article' custom setup for nice code blocks and fonts.
@@ -102,7 +84,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
      ;; + ttf-sil-charis
      ;; + ttf-dejavu
      ;; -----------------------------------------------------------------------------
-     ("org-article" "\\documentclass[11pt,a4paper]{scrartcl}
+     ("joar-org-article" "\\documentclass[11pt,a4paper]{org-article}
 \\usepackage{minted}
 \\usemintedstyle{solarizedlight}
 \\newminted{common-lisp}{fontsize=10}
@@ -126,9 +108,22 @@ the checking happens for all pairs in auto-minor-mode-alist"
     }
 }
 
+%\\fvset{showspaces}
+%\\renewcommand\\FancyVerbSpace{\\textcolor{white}{\\char32}}
+
 \\title{}
  [NO-DEFAULT-PACKAGES]
  [NO-PACKAGES]"
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+     ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+     ("org-article"
+      "\\documentclass{org-article}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]"
      ("\\section{%s}" . "\\section*{%s}")
      ("\\subsection{%s}" . "\\subsection*{%s}")
      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -154,7 +149,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
  '(org-src-fontify-natively t)
  '(org-latex-pdf-process
    (quote
-    ("latexmk -xelatex --shell-escape --output-directory %o %f")))
+    ("latexmk -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
  '(tool-bar-mode nil))
 
 (add-hook 'after-init-hook

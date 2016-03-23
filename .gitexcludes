@@ -1,6 +1,15 @@
-/.idea
-/.venv
-__pycache__
+# joar
 /scratch
+
+# Python
+__pycache__
 *.py[co]
+/.venv
 *.egg-info
+
+# Editors
+/.idea
+*~
+
+# py.test
+.cache
