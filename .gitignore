@@ -8,6 +8,7 @@
 !/.vimrc
 !/.emacs.d/init.el
 !/.tmux.conf
+!/texmf/tex/latex/base/org-article.cls
 # Managed separately
 #!/.config/fish
 
