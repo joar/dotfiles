@@ -65,38 +65,27 @@ the checking happens for all pairs in auto-minor-mode-alist"
  '(custom-safe-themes
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
- '(solarized-use-variable-pitch nil)
  '(inhibit-startup-screen t)
+ '(org-export-headline-levels 6)
  '(org-latex-classes
    (quote
-    (;; -------------------------------------
-     ;; -- PDF
-     ;; -------------------------------------
-     ;; 'org-article' custom setup for nice code blocks and fonts.
-     ;; -----------------------------------------------------------------------------
-     ;; http://comments.gmane.org/gmane.emacs.orgmode/40221
-     ;; -----------------------------------------------------------------------------
-     ;; Ubuntu Packages:
-     ;; + texlive-all  
-     ;; + texlive-xetex
-     ;; + ttf-sil-gentium
-     ;; + ttf-sil-gentium-basic
-     ;; + ttf-sil-charis
-     ;; + ttf-dejavu
-     ;; -----------------------------------------------------------------------------
-     ("joar-org-article" "\\documentclass[11pt,a4paper]{org-article}
+    (("org-article" "
+\\documentclass[a4paper,
+                koma,
+                DIV=15,
+                BCOR=15mm,
+                listings-sv,
+                tocdepths,tocdepthss,tocdepthsss]{org-article}
+
 \\usepackage{minted}
 \\usemintedstyle{solarizedlight}
-\\newminted{common-lisp}{fontsize=10}
-%\\usepackage[T1]{fontenc}
-\\usepackage{hyperref}
-\\usepackage{fontspec}
-\\usepackage{graphicx}
+%\\newminted{common-lisp}{fontsize=10}
 
-\\defaultfontfeatures{Mapping=tex-text}
+% Set fonts
+\\usepackage{fontspec}
 
 \\setromanfont{Gentium}
-\\setromanfont [BoldFont={Gentium Basic Bold},
+\\setromanfont[BoldFont={Gentium Basic Bold},
                 ItalicFont={Gentium Basic Italic}]{Gentium Basic}
 \\setsansfont{Charis SIL}
 \\setmonofont{Inconsolata}
@@ -108,49 +97,33 @@ the checking happens for all pairs in auto-minor-mode-alist"
     }
 }
 
-%\\fvset{showspaces}
-%\\renewcommand\\FancyVerbSpace{\\textcolor{white}{\\char32}}
-
-\\title{}
- [NO-DEFAULT-PACKAGES]
- [NO-PACKAGES]"
-     ("\\section{%s}" . "\\section*{%s}")
-     ("\\subsection{%s}" . "\\subsection*{%s}")
-     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-     ("\\paragraph{%s}" . "\\paragraph*{%s}")
-     ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-     ("org-article"
-      "\\documentclass{org-article}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]"
-     ("\\section{%s}" . "\\section*{%s}")
-     ("\\subsection{%s}" . "\\subsection*{%s}")
-     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-     ("\\paragraph{%s}" . "\\paragraph*{%s}")
-     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
  '(org-latex-default-class "org-article")
- ;; -----------------------------------------------------------------------------
- ;; Added Syntax Highlighting Support
- ;; http://orgmode.org/worg/org-tutorials/org-latex-export.html
- ;; #+LaTeX_HEADER: \usepackage{minted}
- ;; #+LaTeX_HEADER: \usemintedstyle{emacs}
- ;; #+LaTeX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
- ;; -----------------------------------------------------------------------------
- ;; Install Packages:
- ;; + python-pygments
- ;; -----------------------------------------------------------------------------
  '(org-latex-listings (quote minted))
  '(org-latex-minted-options
-   (quote
-    (("breaklines" "true")
-     ("linenos" "")
-     ("frame" "lines"))))
+(quote
+ (("breaklines" "true")
+  ("linenos" "")
+  ("frame" "lines"))))
+'(org-latex-pdf-process
+(quote
+ ("latexmk -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
  '(org-src-fontify-natively t)
- '(org-latex-pdf-process
-   (quote
-    ("latexmk -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
+ '(solarized-use-variable-pitch nil)
  '(tool-bar-mode nil))
+
+
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (define-key (current-local-map) (kbd "C-c l") 'org-store-link)))
+
 
 (add-hook 'after-init-hook
 	  (lambda ()
