@@ -1,0 +1,19 @@
+[core]
+    excludesfile = ~/.gitexcludes
+	attributesfile = ~/.gitattributes
+	pager = diff-so-fancy | less --tabs=1,5 -R
+[color]
+	ui = auto
+[user]
+	email = joar@wandborg.se
+	name = Joar Wandborg
+[push]
+	default = simple
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+#[diff "image"]
+#	command = git-imgdiff
+[log]
+	date = iso
