@@ -13,3 +13,7 @@ __pycache__
 
 # py.test
 .cache
+
+# coverage
+.coverage
+htmlcov
