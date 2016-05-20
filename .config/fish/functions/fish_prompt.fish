@@ -31,6 +31,7 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     # Configurable text
+    set -g t_date_format '%m-%d %H:%M:%S%z'
     set -g t_user_delimiter "@"
     set -g t_return_surround \
         (concat (set_color $c_return_decoration) "[" \
@@ -163,7 +164,7 @@ function fish_prompt --description 'Write out the prompt'
     function get_text_date
         concat \
             (set_color $c_date) \
-            (date -Iseconds) \
+            (date +$t_date_format) \
             (set_color normal)
     end
 
