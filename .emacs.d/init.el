@@ -79,12 +79,18 @@ the checking happens for all pairs in auto-minor-mode-alist"
                 DIV=15,
                 BCOR=15mm,
                 listings-sv,
-                colorlinks=false,
                 minted,
-                titlepage=false]{org-article}
+                titlepage=false,
+                % Pass options to hyperref
+                colorlinks=true,  % false = boxed links; true = colored links
+                linkcolor=black,  % Internal links
+                urlcolor=black    % External links
+                ]{org-article}
 
-%\\usepackage{minted}
 \\usemintedstyle{solarizedlight}
+
+% Disabled: Replaced by [minted] arg to org-article.cls
+%\\usepackage{minted}
 %\\newminted{common-lisp}{fontsize=10}
 
 % Allow symbols
@@ -93,7 +99,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
 % Set fonts
 %\\usepackage{fontspec}
 
-% Disabled: Uses 'utopia' option for org-article instead
+% Disabled: Replaced by [utopia] arg to org-article.cls
 %\\setromanfont{Gentium Basic Bold}
 %\\setromanfont[BoldFont={Gentium Basic Bold},
 %                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
@@ -107,7 +113,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
     }
 }
 
-% Set ToC fonts
+% Disabled: Set ToC fonts
 %\\usepackage{tocloft}
 %\\renewcommand*{\\cftsecfont}{\\sffamily\\bfseries}
 %\\renewcommand*{\\cftsecpagefont}{\\sffamily\\bfseries}
