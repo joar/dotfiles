@@ -17,3 +17,9 @@ __pycache__
 # coverage
 .coverage
 htmlcov
+
+# npm
+node_modules
+
+# OpenOffice
+.~lock*

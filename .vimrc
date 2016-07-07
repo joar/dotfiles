@@ -1,6 +1,9 @@
 " Some plugins require this to be set before they are loaded.
 set nocompatible
 
+" Hack to work around YCM build issue on one of my computers.
+let python = has('patch-7.4.53') ? 'python3' : 'python2'
+
 """ Plugins
 call plug#begin('~/.vim/bundles')
 
@@ -12,6 +15,7 @@ Plug 'motemen/git-vim'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'dag/vim-fish'
 Plug 'joar/vim-colors-solarized'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
@@ -41,7 +45,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tommcdo/vim-exchange'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': python . ' ./install.py' }
 Plug 'wellle/targets.vim'
 Plug 'whatyouhide/vim-lengthmatters'
 
@@ -98,6 +102,7 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set autoindent
+set indentkeys=
 filetype indent off
 
 " Misc
@@ -167,6 +172,24 @@ function! FZF()
     \ &columns, &lines/2, getwinposx(), getwinposy())
 endfunction
 let g:Fzf_launcher = function('FZF')
+
+
+""" YCM
+let g:ycm_path_to_python_interpreter = '/usr/bin/' . python
+let g:ycm_filetype_blacklist = {}
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_key_list_select_completion = ['<tab>']
+let g:ycm_key_list_previous_completion = ['<s-tab>']
+let g:ycm_key_invoke_completion = '<c-tab>'
+let g:ycm_key_detailed_diagnostics = ''
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_semantic_triggers = {
+  \   'elm' : ['.'],
+  \ }
+    nnoremap <silent> <leader>g :YcmCompleter GoTo<cr>
+
 
 """ Status line
 set laststatus=2

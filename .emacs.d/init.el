@@ -2,8 +2,7 @@
 
 ;; Installed packages
 (defvar package-list
-  '(evil
-    org-trello
+  '(graphviz-dot-mode
     request-deferred
     solarized-theme)
   "A list of packages to ensure are installed at launch.")
@@ -66,6 +65,8 @@ the checking happens for all pairs in auto-minor-mode-alist"
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(inhibit-startup-screen t)
+ '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t))))
+ '(org-confirm-babel-evaluate nil)
  '(org-export-headline-levels 6)
  '(org-latex-classes
    (quote
@@ -74,8 +75,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
                 koma,
                 DIV=15,
                 BCOR=15mm,
-                listings-sv,
-                tocdepths,tocdepthss,tocdepthsss]{org-article}
+                listings-sv]{org-article}
 
 \\usepackage{minted}
 \\usemintedstyle{solarizedlight}
@@ -85,9 +85,9 @@ the checking happens for all pairs in auto-minor-mode-alist"
 \\usepackage{fontspec}
 
 \\setromanfont{Gentium}
-\\setromanfont[BoldFont={Gentium Basic Bold},
-                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
-\\setsansfont{Charis SIL}
+%\\setromanfont[BoldFont={Gentium Basic Bold},
+%                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
+% \\setsansfont{Charis SIL}
 \\setmonofont{Inconsolata}
 
 % Fix minted lineno size
@@ -116,9 +116,29 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (quote
  ("latexmk -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
  '(org-src-fontify-natively t)
+'(org-src-lang-modes
+(quote
+ (("ocaml" . tuareg)
+  ("elisp" . emacs-lisp)
+  ("ditaa" . artist)
+  ("asymptote" . asy)
+  ("dot" . graphviz-dot)
+  ("sqlite" . sql)
+  ("calc" . fundamental)
+  ("C" . c)
+  ("cpp" . c++)
+  ("C++" . c++)
+  ("screen" . shell-script))))
+ '(org-startup-with-inline-images t)
  '(solarized-use-variable-pitch nil)
  '(tool-bar-mode nil))
 
+(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
+
+(defun bh/display-inline-images ()
+  (condition-case nil
+      (org-display-inline-images)
+    (error nil)))
 
 (add-hook 'org-mode-hook
 	  (lambda ()
@@ -128,7 +148,13 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (add-hook 'after-init-hook
 	  (lambda ()
 	    (progn
-	      (load-theme 'solarized-light t))))
+	      (load-theme 'solarized-light t)
+	      )))
+
+
+(load "graphviz-dot-mode")
+
+
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

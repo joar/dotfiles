@@ -1,6 +1,16 @@
 set -gx GOPATH ~/gopath
+
+# Go
 set -gx PATH $GOPATH/bin $PATH
+
+# Joar's local bin
 set -gx PATH ~/local/bin $PATH
+# XDG local bin
+set -gx PATH ~/.local/bin $PATH
+
+# rustup/cargo bin
+set -gx PATH ~/.cargo/bin $PATH
+
 #set -gx PATH ~/android-sdk-linux/tools ~/local/bin $PATH
 set -gx PATH ~/pebble-dev/PebbleSDK-2.9/bin $PATH
 set -gx PATH ~/apps/google-cloud-sdk/bin $PATH
