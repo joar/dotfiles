@@ -1,5 +1,7 @@
 (require 'package)
 
+(global-auto-revert-mode 1)
+
 ;; Installed packages
 (defvar package-list
   '(graphviz-dot-mode
@@ -73,22 +75,30 @@ the checking happens for all pairs in auto-minor-mode-alist"
     (("org-article" "
 \\documentclass[a4paper,
                 koma,
+                utopia,
                 DIV=15,
                 BCOR=15mm,
-                listings-sv]{org-article}
+                listings-sv,
+                colorlinks=false,
+                minted,
+                titlepage=false]{org-article}
 
-\\usepackage{minted}
+%\\usepackage{minted}
 \\usemintedstyle{solarizedlight}
 %\\newminted{common-lisp}{fontsize=10}
 
-% Set fonts
-\\usepackage{fontspec}
+% Allow symbols
+\\usepackage[T1]{fontenc}
 
-\\setromanfont{Gentium}
+% Set fonts
+%\\usepackage{fontspec}
+
+% Disabled: Uses 'utopia' option for org-article instead
+%\\setromanfont{Gentium Basic Bold}
 %\\setromanfont[BoldFont={Gentium Basic Bold},
 %                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
-% \\setsansfont{Charis SIL}
-\\setmonofont{Inconsolata}
+%\\setsansfont{Charis SIL}
+%\\setmonofont{Inconsolata}
 
 % Fix minted lineno size
 \\renewcommand{\\theFancyVerbLine}{\\sffamily
@@ -97,15 +107,30 @@ the checking happens for all pairs in auto-minor-mode-alist"
     }
 }
 
+% Set ToC fonts
+%\\usepackage{tocloft}
+%\\renewcommand*{\\cftsecfont}{\\sffamily\\bfseries}
+%\\renewcommand*{\\cftsecpagefont}{\\sffamily\\bfseries}
+%\\renewcommand*{\\cftsubsecfont}{\\tocmainfont}
+%\\renewcommand*{\\cftsubsecpagefont}{\\tocmainfont}
+
+% http://tex.stackexchange.com/a/136000/23121
+%\\setuptoc{toc}{leveldown}
+
+% NO-DEFAULT-PACKAGES
 [NO-DEFAULT-PACKAGES]
+% PACKAGES
 [PACKAGES]
-[EXTRA]"
+% EXTRA
+[EXTRA]
+% END"
       ("\\section{%s}" . "\\section*{%s}")
       ("\\subsection{%s}" . "\\subsection*{%s}")
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
  '(org-latex-default-class "org-article")
+ '(org-latex-with-hyperref nil)
  '(org-latex-listings (quote minted))
  '(org-latex-minted-options
 (quote
