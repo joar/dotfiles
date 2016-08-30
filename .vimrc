@@ -15,6 +15,7 @@ Plug 'motemen/git-vim'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'dag/vim-fish'
 Plug 'joar/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 Plug 'Glench/Vim-Jinja2-Syntax'
 
 " From lydell
@@ -28,7 +29,6 @@ Plug 'groenewege/vim-less'
 Plug 'jamessan/vim-gnupg'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'mileszs/ack.vim'
-Plug 'myint/indent-finder'
 Plug 'othree/yajs.vim'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
@@ -36,6 +36,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-sleuth'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-oblique'
@@ -53,9 +54,14 @@ Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
 
+" Enable modeline
+set modeline
+
 
 """ Settings
 " UI
+let g:solarized_visibility = 'high'
+
 if has('gui_running') " in gvim
     set guioptions-=T
     set guioptions-=m
@@ -63,16 +69,21 @@ if has('gui_running') " in gvim
     set guioptions-=L
     set cursorline
     set relativenumber
-    " let g:seoul256_background = 234
+
     set guifont=Inconsolata\ 11
 
     colorscheme solarized
     set background=light
 else " in terminal
-    colorscheme seoul256
-    let g:seoul256_background = 234
-    set t_Co=16
-    set background=dark
+    if has('termguicolors')
+        set termguicolors
+    else
+        let g:solarized_termcolors = 256
+        set t_Co=256
+    endif
+
+    colorscheme solarized8_light
+    " set background=dark
 endif
 
 
@@ -88,7 +99,7 @@ if has('persistent_undo')
     " Save undo history in undo_dir
     execute "set undodir=".undo_dir
     set undofile
-endif 
+endif
 
 " Search
 set ignorecase
@@ -103,7 +114,6 @@ set shiftwidth=4
 set tabstop=4
 set autoindent
 set indentkeys=
-filetype indent off
 
 " Misc
 set backspace=indent,eol,start
