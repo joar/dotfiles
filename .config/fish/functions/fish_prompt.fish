@@ -9,26 +9,14 @@ function fish_prompt --description 'Write out the prompt'
     set -g c_return_decoration brgrey
     set -g c_return_error brred
     set -g c_return_success brgreen
-    set -g c_virtualenv brpurple
+    set -g c_virtualenv magenta
     set -g c_cwd green
-    set -g c_git bryellow
+    set -g c_git brred
     set -g c_user blue
     set -g c_user_delimiter brgrey
     set -g c_host $c_user
     set -g c_prompt_end $c_user
     set -g c_docker 00ffde
-
-    # For those that have 256 colors or true color support
-    if true
-        set -g c_return_decoration 777777
-        set -g c_return_error ff7777
-        set -g c_return_success 77ff77
-        set -g c_virtualenv ff00de
-        set -g c_git  ffff00
-        set -g c_user 5555ff
-        set -g c_host $c_user
-        set -g c_user_delimiter 5555aa
-    end
 
     # Configurable text
     set -g t_date_format '%m-%d %H:%M:%S%z'

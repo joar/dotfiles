@@ -15,7 +15,6 @@ Plug 'motemen/git-vim'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'dag/vim-fish'
 Plug 'joar/vim-colors-solarized'
-Plug 'lifepillar/vim-solarized8'
 Plug 'Glench/Vim-Jinja2-Syntax'
 
 " From lydell
@@ -60,7 +59,8 @@ set modeline
 
 """ Settings
 " UI
-let g:solarized_visibility = 'high'
+set relativenumber
+set background=light
 
 if has('gui_running') " in gvim
     set guioptions-=T
@@ -68,22 +68,13 @@ if has('gui_running') " in gvim
     set guioptions-=r
     set guioptions-=L
     set cursorline
-    set relativenumber
 
     set guifont=Inconsolata\ 11
 
     colorscheme solarized
-    set background=light
 else " in terminal
-    if has('termguicolors')
-        set termguicolors
-    else
-        let g:solarized_termcolors = 256
-        set t_Co=256
-    endif
-
-    colorscheme solarized8_light
-    " set background=dark
+    " No termiguicolors, since vim-solarized does not handle that well.
+    colorscheme solarized
 endif
 
 
