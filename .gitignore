@@ -9,6 +9,10 @@
 !.emacs.d/init.el
 !.tmux.conf
 !texmf/tex/latex/base/org-article.cls
-# Managed separately
+# fish-shell config
 !/.config/fish
-
+!/.config/fish/*
+!/.config/fish/**/*
+# System config
+!/system-config/*
+!/system-config/**/*

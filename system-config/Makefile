@@ -1,5 +1,8 @@
 XORG_CONF_D = /usr/share/X11/xorg.conf.d
 SYSCTL_CONF_D = /etc/sysctl.d
+SSH_CONF_D = /etc/ssh
+
+INSTALL := install --backup=numbered --suffix='.bak'
 
 .PHONY:
 default:
@@ -8,8 +11,12 @@ default:
 
 .PHONY: sysctl-conf
 sysctl-conf: $(wildcard sysctl.d/*)
-	install -m 644 $? $(SYSCTL_CONF_D)
+	$(INSTALL) -m 644 $? $(SYSCTL_CONF_D)
 
 .PHONY: xorg-conf
 xorg-conf: $(wildcard xorg.conf.d/*)
-	install -m 644 $? $(XORG_CONF_D)
+	$(INSTALL) -m 644 $? $(XORG_CONF_D)
+
+.PHONY: ssh-conf
+ssh-conf: $(wildcard ssh/*)
+	$(INSTALL) -m 644 $? $(SSH_CONF_D)
