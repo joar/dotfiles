@@ -1,7 +1,9 @@
 # This is the .gitignore for the git repository ~/dotfiles.git
 
 # Ignore everything by default
-*
+/*
+
+# Unignore
 !README.org
 !.gitignore
 !.gitexcludes
@@ -9,10 +11,20 @@
 !.emacs.d/init.el
 !.tmux.conf
 !texmf/tex/latex/base/org-article.cls
+
+# XDG config, just the directory
+!/.config
+/.config/*
+
+# GTK3 styles
+!/.config/gtk-3.0
+
 # fish-shell config
 !/.config/fish
 !/.config/fish/*
 !/.config/fish/**/*
+
 # System config
+!/system-config
 !/system-config/*
 !/system-config/**/*
