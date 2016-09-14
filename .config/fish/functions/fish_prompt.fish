@@ -1,5 +1,5 @@
 function fish_prompt --description 'Write out the prompt'
-	set -g last_ret $status
+    set -g last_ret $status
     if not set -q status
         set -g last_ret 0
     end
@@ -190,5 +190,5 @@ function fish_prompt --description 'Write out the prompt'
     functions -e get_text_docker
     functions -e get_text_debug
     functions -e get_text_prompt_end
-		z --add "$PWD"
+    # z --add "$PWD"
 end
