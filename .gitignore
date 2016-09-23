@@ -4,12 +4,13 @@
 /*
 
 # Unignore
-!README.org
-!.gitignore
-!.gitexcludes
-!.vimrc
-!.emacs.d/init.el
-!.tmux.conf
+!/README.org
+!/.gitignore
+!/.gitexcludes
+!/.vimrc
+!/.emacs.d/init.el
+!/.tmux.conf
+!/.ptconfig.toml
 !texmf/tex/latex/base/org-article.cls
 
 # XDG config, just the directory
