@@ -8,11 +8,6 @@ set -gx GOPATH ~/gopath
 # XDG local bin
 set -gx PATH ~/.local/bin $PATH
 
-# rustup/cargo bin
-if test -d ~/.cargo/bin
-    set -gx PATH ~/.cargo/bin $PATH
-end
-
 # gcloud
 # - The next line updates PATH for the Google Cloud SDK.
 # bass source '/home/joar/apps/google-cloud-sdk/path.bash.inc'

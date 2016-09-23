@@ -20,3 +20,7 @@ xorg-conf: $(wildcard xorg.conf.d/*)
 .PHONY: ssh-conf
 ssh-conf: $(wildcard ssh/*)
 	$(INSTALL) -m 644 $? $(SSH_CONF_D)
+
+.PHONY: the-platinum-searcher
+the-platinum-searcher:
+	make -C $@ install
