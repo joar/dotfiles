@@ -197,7 +197,6 @@ set statusline=
 set statusline+=%-4(%m%) "[+]
 set statusline+=%f:%l:%c "dir/file.js:12:5
 set statusline+=%=%<
-set statusline+=%{CapsLockStatusline()}
 set statusline+=%{&fileformat=='unix'?'':'['.&fileformat.']'}
 set statusline+=%{strlen(&fileencoding)==0\|\|&fileencoding=='utf-8'?'':'['.&fileencoding.']'}
 set statusline+=%r "[RO]
