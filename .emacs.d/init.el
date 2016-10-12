@@ -6,6 +6,7 @@
 (defvar package-list
   '(graphviz-dot-mode
     request-deferred
+    org-pomodoro ;; https://github.com/lolownia/org-pomodoro
     solarized-theme)
   "A list of packages to ensure are installed at launch.")
 
