@@ -17,3 +17,5 @@
 #	command = git-imgdiff
 [log]
 	date = iso
+[init]
+	templatedir = /home/joar/.config/git-templates

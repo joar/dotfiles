@@ -11,10 +11,13 @@
 !/.emacs.d/init.el
 !/.tmux.conf
 !/.ptconfig.toml
+
+# org-article
 !texmf/tex/latex/base/org-article.cls
 
 # XDG config, just the directory
 !/.config
+# reignore contents
 /.config/*
 
 # GTK3 styles
@@ -24,6 +27,11 @@
 !/.config/fish
 !/.config/fish/*
 !/.config/fish/**/*
+
+# git-templates
+!/.config/git-templates
+!/.config/git-templates/*
+!/.config/git-templates/**/*
 
 # System config
 !/system-config
