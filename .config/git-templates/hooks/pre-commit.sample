@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# From http://jakemccrary.com/blog/2015/05/31/use-git-pre-commit-hooks-to-stop-unwanted-commits/
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
     against=HEAD
