@@ -24,3 +24,7 @@ ssh-conf: $(wildcard ssh/*)
 .PHONY: the-platinum-searcher
 the-platinum-searcher:
 	make -C $@ install
+
+.PHONY: oled-brightness
+oled-brightness:
+	make -C $@ install

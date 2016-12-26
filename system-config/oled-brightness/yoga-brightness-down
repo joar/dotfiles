@@ -1,0 +1,2 @@
+event=video/brightnessdown BRTDN 00000087
+action=/etc/acpi/yoga-brightness.sh down
