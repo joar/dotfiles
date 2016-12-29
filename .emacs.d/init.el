@@ -163,8 +163,14 @@ the checking happens for all pairs in auto-minor-mode-alist"
   ("screen" . shell-script))))
  '(org-startup-with-inline-images t)
  '(solarized-use-variable-pitch nil)
- '(tool-bar-mode nil))
+'(tool-bar-mode nil))
 
+(setq org-capture-templates
+      '(("c" "Clocked item" item (clock)
+	 "%i%U: %?")))
+
+;; org-mode
+;; Show babel-generated inline images automatically
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
 
 (defun bh/display-inline-images ()
@@ -174,7 +180,8 @@ the checking happens for all pairs in auto-minor-mode-alist"
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    (define-key (current-local-map) (kbd "C-c l") 'org-store-link)))
+	    (define-key (current-local-map) (kbd "C-c l") 'org-store-link)
+	    (define-key global-map "\C-cc" 'org-capture)))
 
 
 (add-hook 'after-init-hook
