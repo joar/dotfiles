@@ -7,6 +7,7 @@
   '(graphviz-dot-mode
     request-deferred
     org-pomodoro ;; https://github.com/lolownia/org-pomodoro
+    focus-autosave-mode
     solarized-theme)
   "A list of packages to ensure are installed at launch.")
 
@@ -193,7 +194,8 @@ the checking happens for all pairs in auto-minor-mode-alist"
 
 (load "graphviz-dot-mode")
 
-
+;; Automaticall save changed buffers when li
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t nil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
