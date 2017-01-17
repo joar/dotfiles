@@ -14,8 +14,11 @@ Plug 'elzr/vim-json'
 Plug 'motemen/git-vim'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'dag/vim-fish'
-Plug 'joar/vim-colors-solarized'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'joar/vim-colors-solarized'
+" Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'justinmk/vim-sneak'
+Plug 'unblevable/quick-scope'
 
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
@@ -59,9 +62,16 @@ set modeline
 """ Settings
 " UI
 set relativenumber
-set background=light
+set background=dark
 
-if has('gui_running') " in gvim
+" Colorscheme
+let g:terminal_italic = 0
+set termguicolors
+colorscheme solarized
+
+
+if has('nvim') " in nvim
+elseif has('gui_running') " in gvim
     set guioptions-=T
     set guioptions-=m
     set guioptions-=r
@@ -69,11 +79,7 @@ if has('gui_running') " in gvim
     set cursorline
 
     set guifont=Inconsolata\ 11
-
-    colorscheme solarized
 else " in terminal
-    " No termiguicolors, since vim-solarized does not handle that well.
-    colorscheme solarized
 endif
 
 
