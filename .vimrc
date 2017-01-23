@@ -19,6 +19,9 @@ Plug 'joar/vim-colors-solarized'
 " Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'brooth/far.vim' " Find and replace
+Plug 'cespare/vim-toml'
 
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
@@ -64,14 +67,32 @@ set modeline
 set relativenumber
 set background=dark
 
+" Cursor
+
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
+
+" insert mode - line
+let &t_SI .= "\<Esc>[5 q"
+"replace mode - underline
+let &t_SR .= "\<Esc>[4 q"
+"common - block
+let &t_EI .= "\<Esc>[3 q"
+
 " Colorscheme
-let g:terminal_italic = 0
+let g:solarized_italic = 0
 set termguicolors
 colorscheme solarized
 
+" Quickscope
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" let g:qs_first_occurrence_highlight_color = '#afff5f'
+let g:qs_first_occurrence_highlight_color = 155       " terminal vim
 
-if has('nvim') " in nvim
-elseif has('gui_running') " in gvim
+" GUI
+
+if has('gui_running')
     set guioptions-=T
     set guioptions-=m
     set guioptions-=r
@@ -79,7 +100,6 @@ elseif has('gui_running') " in gvim
     set cursorline
 
     set guifont=Inconsolata\ 11
-else " in terminal
 endif
 
 
@@ -194,7 +214,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_semantic_triggers = {
   \   'elm' : ['.'],
   \ }
-    nnoremap <silent> <leader>g :YcmCompleter GoTo<cr>
+nnoremap <silent> <leader>g :YcmCompleter GoTo<cr>
 
 
 """ Status line
