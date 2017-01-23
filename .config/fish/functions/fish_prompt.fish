@@ -102,14 +102,16 @@ function fish_prompt --description 'Write out the prompt'
         set -l is_first 0
 
         for item in $list
-            if not test "$is_first" -eq 0
+            if test -n "$is_first"
+                and test $is_first -eq 1  # "false"
                 concat $str
             end
 
             concat $item
 
-            if test "$is_first" -eq 0
-                set is_first 1
+            if test -n "$is_first"
+                and test $is_first -eq 0  # "true"
+                set is_first 1  # "false"
             end
         end
     end
@@ -134,7 +136,8 @@ function fish_prompt --description 'Write out the prompt'
 
     function set_color_for_return_status --argument-names return_status
         set -l color $__prompt_color_return_success
-        if test "$return_status" -gt 0
+        if test -n "$return_status"
+            and test $return_status -gt 0
             set color $__prompt_color_return_error
         end
         set_color $color
@@ -177,7 +180,7 @@ function fish_prompt --description 'Write out the prompt'
             (__fish_git_prompt))
 
         set -l output (__fish_git_prompt)
-        if not test -z "$output"
+        if test -n "$output"
             string trim (concat \
                     (set_color $__prompt_color_git) \
                     $output \
@@ -203,10 +206,12 @@ function fish_prompt --description 'Write out the prompt'
 
     function format_duration
         set -l excluded (__prompt_excluded $__prompt_last_command)
-        if test "$__prompt_last_duration" -gt "$__prompt_min_duration" \
-            -a "$excluded" -ne 1
+        if test -n "$__prompt_last_duration"
+            and test -n "$__prompt_min_duration"
+            and test $__prompt_last_duration -gt $__prompt_min_duration
+            and test $excluded -ne 1
             set -l duration (__prompt_format_time $__prompt_last_duration)
-            if not test -z "$duration"
+            if test -n "$duration"
                 concat \
                     (set_color $__prompt_color_duration) \
                     $duration \
@@ -219,7 +224,6 @@ function fish_prompt --description 'Write out the prompt'
     update_hostname
     string join ' ' \
         (format_return_status) \
-        (format_duration) \
         (format_user) \
         (format_cwd) \
         (format_venv) \
