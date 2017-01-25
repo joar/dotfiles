@@ -14,7 +14,17 @@ __fish_config_optional_path ~/.cargo/bin
 # fzf
 __fish_config_optional_path ~/.fzf/bin
 
-set -x __fish_config_dir (dirname (status -f))
-set -l __local_config $__fish_config_dir/config.local.fish
+# XDG local bin
+__fish_config_optional_path ~/.local/bin
 
-test -f $__local_config; and . $__local_config
+# Disable Python bytecode cache
+# https://docs.python.org/2/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE
+set -gx PYTHONDONTWRITEBYTECODE 1
+
+# Run functions that have --on-variable PWD
+auto_scratch_bin
+auto_node_modules_bin
+
+# Init virtualfish
+# force python2
+eval (/usr/bin/python -m virtualfish auto_activation global_requirements)
