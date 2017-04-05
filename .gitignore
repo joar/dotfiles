@@ -33,6 +33,13 @@
 !/.config/git-templates/*
 !/.config/git-templates/**/*
 
+# init.vim
+!/.config/nvim/
+!/.config/nvim/init.vim
+
+# systemd services
+!/.config/systemd/
+
 # System config
 !/system-config
 !/system-config/*
