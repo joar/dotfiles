@@ -1,5 +1,3 @@
 function concat
-    for i in $argv
-        echo -n $i;
-    end
+    string join '' $argv
 end
