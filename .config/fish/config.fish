@@ -4,15 +4,19 @@ function __fish_config_optional_path \
         --argument-names path \
         --description 'Add a path to $PATH if it exists'
     if test -d $path
-        set -gx PATH $path $PATH
+        set -gx fish_user_paths $path $fish_user_paths
     end
 end
 
 # rustup/cargo bin
 __fish_config_optional_path ~/.cargo/bin
 
-# fzf
-__fish_config_optional_path ~/.fzf/bin
+# golang
+set -gx GOROOT ~/src/go
+__fish_config_optional_path ~/src/go/bin
+
+# Google Cloud SDK
+__fish_config_optional_path ~/google-cloud-sdk/bin
 
 # XDG local bin
 __fish_config_optional_path ~/.local/bin

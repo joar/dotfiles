@@ -162,7 +162,6 @@ function __prompt_format_prompt_end
 end
 
 function __prompt_format_duration
-  
   set -l excluded $status
 
   if test -n "$__prompt_last_duration"
