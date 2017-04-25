@@ -1,11 +1,13 @@
 function bump-git-tag \
-    --description 'Helper to create a new git tag for a new version' \
+    --description 'Bump the git-tagged version' \
     --argument-names semver_increment semver_preid
-    set -l current_version (semver (git tag))
+    set -l versions (semver (git tag))
     set -l autobumped_version
     set -l right_prompt
 
-    if test -n "$current_version"
+    if test -n "$versions"
+        set -l current_version $versions[1]
+
         if test -z "$semver_increment"
             set semver_increment 'prerelease'
         end
@@ -13,7 +15,7 @@ function bump-git-tag \
         set -l semver_input $current_version
 
         if test "$semver_increment" = 'prerelease'
-            and not echo $semver_input | sed '/-./q 0; q 1'
+            and not echo $semver_input | sed -n '/-./q 0; q 1'
             # avoid bumping patch when creating a new prerelease
             set semver_input $semver_input'-fake'
         end
