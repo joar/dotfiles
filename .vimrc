@@ -25,10 +25,11 @@ Plug 'cespare/vim-toml' " cargo TOML files
 Plug 'kien/ctrlp.vim' " buffer/file/tag finder
 Plug 'vito-c/jq.vim' " jq syntax
 Plug 'danro/rename.vim'  " rename file
-Plug 'stephpy/vim-yaml'  " better YAML syntax
+" Plug 'stephpy/vim-yaml'  " better YAML syntax^W^W^W worse YAML syntax
 " Replaced by vim-signify
 " Plug 'airblade/vim-gitgutter' " git gutter, shows changed lines in a 'gutter'
 Plug 'mhinz/vim-signify'  " show git changes
+Plug 'fatih/vim-go' " go development plugin
 
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
@@ -57,7 +58,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tommcdo/vim-exchange'
 Plug 'Valloric/YouCompleteMe', { 'do': python . ' ./install.py' }
 Plug 'wellle/targets.vim'
-Plug 'whatyouhide/vim-lengthmatters'
+Plug 'whatyouhide/vim-lengthmatters'  " highlights text that overflows textwidth
 
 Plug 'kchmck/vim-coffee-script'
 
@@ -67,6 +68,13 @@ call plug#end()
 " ------------------------------------------------------------------------------
 
 set relativenumber
+set colorcolumn=80   " mark the 80th column
+
+" title
+" ------------------------------------------------------------------------------
+
+set titlestring=vim\ %{expand(\"%:~:.\")}\ \ -\ %{fnamemodify(getcwd(),\ \":~:.\")}
+set title  " update terminal title to matc current file
 
 " Cursor shape in terminal
 " ------------------------------------------------------------------------------
@@ -126,6 +134,17 @@ if has('gui_running')
   set guifont=Inconsolata\ 11
 endif
 
+" easy-align
+" ------------------------------------------------------------------------------
+
+xmap ga <Plug>(EasyAlign)
+
+" Signify
+" ------------------------------------------------------------------------------
+
+let g:signify_realtime = 1
+let g:signify_sign_show_count = 0
+
 " Enable modeline
 set modeline
 
@@ -183,6 +202,7 @@ let g:ctrlp_working_path_mode = '0'
 
 " Set sqlcomplete omni key to something else than the default '<C-C>'
 let g:ftplugin_sql_omni_key = '<C-Ä>'
+
 " unmap default C-g
 imap <C-c> <Esc>
 
@@ -191,8 +211,25 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
-" <leader>
+" HorizontalRuler
+" ------------------------------------------------------------------------------
+
+inoremap <silent> <c-s-l> a<bs><c-o>:call HorizontalRuler()<cr>
+
+function! HorizontalRuler()
+  let char = nr2char(getchar())
+  let width = &textwidth - (col('.') - 1)
+
+  execute 'normal! ' . width . 'a' . char
+  " start insert at end of line
+  execute 'startinsert!'
+endfunction
+
+" <leader> Mappings
+" ------------------------------------------------------------------------------
 map <space> <leader>
+
+nnoremap <leader>c :center<cr>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
@@ -202,6 +239,10 @@ nnoremap <leader>L :source ~/.vimrc<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>p :CtrlPMixed<cr>
 
+" Command mode
+" ------------------------------------------------------------------------------
+
+" common typos
 cnoreabbrev W w
 cnoreabbrev Wq wq
 
