@@ -15,6 +15,9 @@ __fish_config_optional_path ~/.cargo/bin
 set -gx GOROOT ~/src/go
 __fish_config_optional_path ~/src/go/bin
 
+# default GOPATH
+__fish_config_optional_path ~/go/bin
+
 # Google Cloud SDK
 __fish_config_optional_path ~/google-cloud-sdk/bin
 
