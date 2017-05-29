@@ -1,0 +1,3 @@
+{% with t = trackpoint %}
+SUBSYSTEM=="serio", DRIVERS=="psmouse", DEVPATH="{{ t.device }}", ATTR{sensitivity}="{{ t.attr.sensitivity }}", ATTR{speed}="{{ t.attr.speed }}"
+{% endwith %}
