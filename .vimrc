@@ -93,7 +93,7 @@ let &t_EI .= "\<Esc>[3 q"
 " Colorscheme
 " ------------------------------------------------------------------------------
 
-set background=dark
+set background=light
 
 let g:solarized_italic = 0  " disable italic text
 set termguicolors  " enable true color
@@ -137,7 +137,7 @@ endif
 " easy-align
 " ------------------------------------------------------------------------------
 
-xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " Signify
 " ------------------------------------------------------------------------------
@@ -193,6 +193,7 @@ set splitright
 set textwidth=80
 set wildmenu
 set wildmode=list:longest,full
+set number  " Shows current line number
 
 " CtrlP
 let g:ctrlp_working_path_mode = '0'
@@ -203,6 +204,9 @@ let g:ctrlp_working_path_mode = '0'
 " Set sqlcomplete omni key to something else than the default '<C-C>'
 let g:ftplugin_sql_omni_key = '<C-Ä>'
 
+" Source a visual range
+vmap <leader>s y:@"<CR>
+
 " unmap default C-g
 imap <C-c> <Esc>
 
@@ -210,20 +214,6 @@ nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
-
-" HorizontalRuler
-" ------------------------------------------------------------------------------
-
-inoremap <silent> <c-s-l> a<bs><c-o>:call HorizontalRuler()<cr>
-
-function! HorizontalRuler()
-  let char = nr2char(getchar())
-  let width = &textwidth - (col('.') - 1)
-
-  execute 'normal! ' . width . 'a' . char
-  " start insert at end of line
-  execute 'startinsert!'
-endfunction
 
 " <leader> Mappings
 " ------------------------------------------------------------------------------
@@ -314,3 +304,35 @@ autocmd!
 autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 augroup END
+
+" Functions
+" ==============================================================================
+
+" HorizontalRuler
+" ------------------------------------------------------------------------------
+
+inoremap <silent> <c-s-l> a<bs><c-\><c-o>:call HorizontalRuler()<cr>
+
+function! HorizontalRuler()
+  let wasAtEOL = (col('.') == col('$'))
+  let char = nr2char(getchar())
+  let width = &textwidth - (col('.') - 1)
+
+  execute 'normal! ' . width . 'a' . char
+  " start insert at end of line
+  let bang = wasAtEOL ? '!' : ''
+  execute 'startinsert' . bang
+endfunction
+
+" ToggleBackground
+" ------------------------------------------------------------------------------
+
+nnoremap <c-e>b :call ToggleBackground()<cr>
+
+function! ToggleBackground()
+  if &background == 'light'
+    set background=dark
+  else
+    set background=light
+  end
+endfunction
