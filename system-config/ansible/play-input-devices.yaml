@@ -21,16 +21,6 @@
         # Disable middle button paste
         ButtonMapping: '1 0 3'
 
-        # See https://www.x.org/wiki/Development/Documentation/PointerAcceleration/
-        #AccelerationProfile: '2'  # polynomial
-        #AdaptiveDeceleration: '10'
-        # VelocityScale: '10'
-
-        # See xorg.conf(5)
-        # AccelerationNumerator: '2'
-        # AccelerationDenominator: '1'
-        # AccelerationThreshold: '10'
-
         # libinput acceleration
         AccelProfile: "adaptive"
         AccelSpeed: '1'
@@ -44,14 +34,19 @@
         present: false
         src: xorg-conf/trackpoint.conf.j2
         dest: '{{ xorg.conf_dir }}/50-trackpoint-joar.conf'
-      stick_hwdb:
-        present: true
-        src: hwdb/trackpoint.hwdb.j2
-        dest: '{{ udev.hwdb_dir }}/99-pointingstick-x1-tablet-joar.hwdb'
       pad_xorg:
         src: xorg-conf/touchpad.conf.j2
         dest: '{{ xorg.conf_dir }}/70-touchpad-joar.conf'
         present: true
+
+    pointingstick_hwdb:
+      event_device: /sys/class/input/event8
+      sensitivity: 255
+      const_accel: '1.0'
+
+    pointingstick_hwdb_config:
+      src: hwdb/trackpoint.hwdb.j2
+      dest: '{{ udev.hwdb_dir }}/99-pointingstick-x1-tablet-joar.hwdb'
 
   tasks:
     - tags:
@@ -64,3 +59,28 @@
           vars:
             item_: '{{ item }}'
           with_items: '{{ input_device_configs.values()|list }}'
+
+    - tags:
+        - input-devices
+        - hwdb
+        - pointingstick
+
+      block:
+
+        - name: add X1 Yoga HWDB entry
+          become: true
+          template:
+            src: '{{ pointingstick_hwdb_config.src }}'
+            dest: '{{ pointingstick_hwdb_config.dest }}'
+          register: _pointingstick_hwdb_entry
+
+        - when: _pointingstick_hwdb_entry|changed
+          block:
+
+            - name: reload hwdb
+              become: true
+              command: systemd-hwdb update
+
+            - name: trigger event device
+              become: true
+              command: 'udevadm trigger {{ pointingstick_hwdb.event_device }}'
