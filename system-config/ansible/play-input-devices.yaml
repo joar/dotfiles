@@ -1,0 +1,66 @@
+- hosts: local
+  vars:
+    touchpad_xorg:
+      options:
+        Buttons: 3
+        ScrollMethod: twofinger
+        NaturalScrolling: 'true'
+        ButtonMapping: '1 0 3'
+
+    trackpoint_udev:
+
+      device: /sys/devices/platform/i8042/serio1/serio2
+      attr:
+        speed: 97
+        sensitivity: 210
+
+    trackpoint_xorg:
+      priority: 60
+      options:
+        Buttons: '3'
+        # Disable middle button paste
+        ButtonMapping: '1 0 3'
+
+        # See https://www.x.org/wiki/Development/Documentation/PointerAcceleration/
+        #AccelerationProfile: '2'  # polynomial
+        #AdaptiveDeceleration: '10'
+        # VelocityScale: '10'
+
+        # See xorg.conf(5)
+        # AccelerationNumerator: '2'
+        # AccelerationDenominator: '1'
+        # AccelerationThreshold: '10'
+
+        # libinput acceleration
+        AccelProfile: "adaptive"
+        AccelSpeed: '1'
+
+    input_device_configs:
+      stick_udev:
+        present: false
+        src: udev-rules/trackpoint.rules.j2
+        dest: '{{ udev.rules_dir }}/70-trackpoint.rules'
+      stick_xorg:
+        present: false
+        src: xorg-conf/trackpoint.conf.j2
+        dest: '{{ xorg.conf_dir }}/50-trackpoint-joar.conf'
+      stick_hwdb:
+        present: true
+        src: hwdb/trackpoint.hwdb.j2
+        dest: '{{ udev.hwdb_dir }}/99-pointingstick-x1-tablet-joar.hwdb'
+      pad_xorg:
+        src: xorg-conf/touchpad.conf.j2
+        dest: '{{ xorg.conf_dir }}/70-touchpad-joar.conf'
+        present: true
+
+  tasks:
+    - tags:
+        - input-devices
+
+      block:
+
+        - include: tasks/template-or-absent.yaml
+          become: true
+          vars:
+            item_: '{{ item }}'
+          with_items: '{{ input_device_configs.values()|list }}'

@@ -1,0 +1,10 @@
+# vim: set ft=xf86conf:noexpandtab:
+# DO NOT EDIT: This file is managed by ansible
+Section "InputClass"
+	Identifier	"touchpad joar/dotfiles"
+	MatchIsTouchpad	"on"
+	Driver "libinput"
+{% for key, value in touchpad_xorg.options.items() %}
+	Option "{{ key }}" "{{ value }}"
+{% endfor %}
+EndSection

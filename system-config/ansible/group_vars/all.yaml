@@ -1,0 +1,6 @@
+udev:
+  rules_dir: /etc/udev/rules.d
+  hwdb_dir: /etc/udev/hwdb.d
+
+xorg:
+  conf_dir: /usr/share/X11/xorg.conf.d

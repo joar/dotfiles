@@ -1,0 +1,20 @@
+# Pass vars:
+#
+# -  present: bool. If false, dest will be absent
+# -  src: template path. If `present` is true, this template will be rendered to
+#    `dest`.
+# -  dest: filesystem path
+
+- name: 'render {{ item_.src }} to {{ item_.dest }}'
+  when: item_.present
+  template:
+    src: '{{ item_.src }}'
+    dest: '{{ item_.dest }}'
+
+- name: 'remove {{ item_.dest }}'
+  when: >
+    not item_.present
+    and item_.dest
+  file:
+    path: '{{ item_.dest }}'
+    state: absent

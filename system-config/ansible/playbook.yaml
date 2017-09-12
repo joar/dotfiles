@@ -3,9 +3,6 @@
   vars:
     local_bin: /home/joar/.local/bin
 
-    udev:
-      rules_dir: /etc/udev/rules.d
-
     packages_path: /home/joar/src
 
     helm_base: '{{ packages_path }}/helm-{{ helm_version }}'
@@ -23,18 +20,6 @@
         sensitivity: 210
 
   tasks:
-
-    - tags:
-        - configure
-        - configure.trackpoint
-
-      block:
-
-        - name: install trackpoint udev rule
-          become: true
-          template:
-            src: udev-rules/trackpoint.rules.j2
-            dest: '{{ udev.rules_dir }}/trackpoint.rules'
 
     - tags:
         - helm
@@ -66,3 +51,17 @@
             path: '{{ local_bin }}/{{ helm_bin }}'
             src: '{{ helm_base }}/{{ helm_archive_bin }}'
             state: link
+
+    - tags:
+        - nm-vpn-dns
+
+      block:
+        # https://airvpn.org/topic/22715-leaking-dns-with-ubuntu-1704/
+        # https://thealarmclocksixam.com/2017/08/08/dns-configuration-with-vpns-and-ubuntu-17-04-working-again/
+        - become: true
+          lineinfile:
+            path: /etc/NetworkManager/NetworkManager.conf
+            insertafter: '\[main\]'
+            line: 'dns=none'
+
+- include: play-input-devices.yaml
