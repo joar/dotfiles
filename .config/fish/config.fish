@@ -1,4 +1,4 @@
-set -e fish_greeting
+set --universal fish_greeting ''
 
 function __fish_config_optional_path \
         --argument-names path \
@@ -22,16 +22,39 @@ __fish_config_optional_path ~/go/bin
 __fish_config_optional_path ~/google-cloud-sdk/bin
 
 # XDG local bin
+# if status --is-login
+#     set -gx PATH ~/.local/bin $PATH
+# end
 __fish_config_optional_path ~/.local/bin
+
+# miniconda3
+# __fish_config_optional_path ~/miniconda3/bin
 
 # Disable Python bytecode cache
 # https://docs.python.org/2/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE
 set -gx PYTHONDONTWRITEBYTECODE 1
 
+# Mosh default escape
+set -gx MOSH_ESCAPE_KEY \028  # Ctrl-X
+
+# Set TERM and COLORTERM properly
+set -gx TERM xterm-256color
+set -gx COLORTERM gnome-terminal
+
 # Run functions that have --on-variable PWD
 auto_scratch_bin
 auto_node_modules_bin
+auto_kube_config
+
+# Use `--fancy` by default when running `pipenv shell`
+set -x PIPENV_SHELL_FANCY "not null"
 
 # Init virtualfish
-# force python2
-eval (/usr/bin/python -m virtualfish auto_activation global_requirements)
+# virtualfish is installed via
+# $ pip --version
+# pip 9.0.1 from /home/joar/.local/lib/python3.5/site-packages (python 3.5)
+# $ pip install --user virtualfish
+
+eval (/usr/bin/python3.5 -m virtualfish auto_activation global_requirements)
+
+eval (direnv hook fish)

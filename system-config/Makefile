@@ -1,8 +1,9 @@
 XORG_CONF_D = /usr/share/X11/xorg.conf.d
+UDEV_RULES_D = /etc/udev/rules.d
 SYSCTL_CONF_D = /etc/sysctl.d
 SSH_CONF_D = /etc/ssh
 
-INSTALL := install --backup=numbered --suffix='.bak'
+INSTALL := install --backup=simple
 
 .PHONY:
 default:
@@ -16,6 +17,10 @@ sysctl-conf: $(wildcard sysctl.d/*)
 .PHONY: xorg-conf
 xorg-conf: $(wildcard xorg.conf.d/*)
 	$(INSTALL) -m 644 $? $(XORG_CONF_D)
+
+.PHONY: xorg-conf
+udev-rules: $(wildcard udev-rules.d/*)
+	$(INSTALL) -m 644 $? $(UDEV_RULES_D)
 
 .PHONY: ssh-conf
 ssh-conf: $(wildcard ssh/*)

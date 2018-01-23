@@ -2,7 +2,7 @@ ACPI_ACTIONS := yoga-brightness-up yoga-brightness-down
 ACPI_EVENT_D = /etc/acpi/events
 ACPI_SCRIPT_D = /etc/acpi
 
-INSTALL := install --backup=numbered --suffix='.bak'
+INSTALL := install --backup=numbered
 
 .PHONY: default
 default:

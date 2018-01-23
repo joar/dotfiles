@@ -1,5 +1,5 @@
 BASE ?= https://github.com/monochromegane/the_platinum_searcher/releases/download
-VERSION ?= 2.1.4
+VERSION ?= 2.1.5
 
 PREFIX ?= ~/.local/bin
 

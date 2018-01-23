@@ -31,6 +31,8 @@ set __prompt_color_cwd $__solarized_green
 set __prompt_color_user $__solarized_blue
 set __prompt_color_host $__solarized_blue
 set __prompt_color_prompt_end $__solarized_blue
+set __prompt_color_kube_context $__solarized_violet
+set __prompt_color_gcloud_project $__solarized_blue
 
 
 # Configure __fish_git_prompt
@@ -102,12 +104,10 @@ end
 
 function __prompt_format_venv
   if set -q VIRTUAL_ENV
-    string trim (concat \
+    string join '' \
       (set_color $__prompt_color_virtualenv) \
-      "(" \
-      (basename "$VIRTUAL_ENV") \
-      ")" \
-      (set_color normal))
+      🐍 \
+      (set_color normal)
   end
 end
 
@@ -186,4 +186,23 @@ function __prompt_format_time -a milliseconds
   set -l seconds (math "$milliseconds / 1000")
   set -l formatted (date --utc --date @$seconds "+%-kh %-Mm %-Ss")
   string replace --regex '^[0\D\s]+' '' $formatted
+end
+
+function __prompt_format_kube_config_context
+  if set -q KUBECONFIG;
+    printf "%s%s%s" \
+      (set_color $__prompt_color_kube_context) \
+      "k8s:"(kubectl config current-context) \
+      (set_color normal)
+  end
+end
+
+function __prompt_format_gcloud_project
+  set -l current_project (gcloud config get-value project ^ /dev/null)
+  if test -n "$current_project"
+    printf "%s%s%s" \
+      (set_color $__prompt_color_gcloud_project) \
+      "gcloud:$current_project" \
+      (set_color normal)
+  end
 end

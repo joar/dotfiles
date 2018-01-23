@@ -1,5 +1,5 @@
 # vim: set sw=4:ts=4:sts=4:
-function auto_kube_config --on-variable PWD --description 'Auomatically set $KUBECONFIG'
+function auto_kube_config --on-variable PWD --on-event kubectl:run --description 'Auomatically set $KUBECONFIG'
     set -l default_kube_config $HOME/.kube/config
     set -l kube_config_filename '.kube-config'
     set -l kube_config_search_path (pwd)

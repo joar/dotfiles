@@ -2,13 +2,21 @@
 
 (global-auto-revert-mode 1)
 
+(add-hook 'after-init-hook
+   (lambda ()
+     (progn
+       (load-theme 'solarized-light t)
+       )))
+
 ;; Installed packages
-(defvar package-list
+(defvar package-lisxt
   '(graphviz-dot-mode
     request-deferred
     org-pomodoro ;; https://github.com/lolownia/org-pomodoro
     focus-autosave-mode
-    solarized-theme)
+    ob-ipython
+    solarized-theme
+    smooth-scrolling)
   "A list of packages to ensure are installed at launch.")
 
 ;; Package archives
@@ -22,9 +30,9 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+;; (dolist (pkg package-list)
+;;  (unless (package-installed-p pkg)
+;;    (package-install pkg)))
 
 
 ;; org-trello
@@ -59,118 +67,14 @@ the checking happens for all pairs in auto-minor-mode-alist"
 ;; Initialize evil-mode
 ;; (evil-mode 1)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (solarized-light)))
- '(custom-safe-themes
-   (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
- '(inhibit-startup-screen t)
- '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t))))
- '(org-confirm-babel-evaluate nil)
- '(org-export-headline-levels 6)
- '(org-latex-classes
-   (quote
-    (("org-article" "
-\\documentclass[a4paper,
-                koma,
-                utopia,
-                DIV=15,
-                BCOR=15mm,
-                listings-sv,
-                minted,
-                titlepage=false,
-                % Pass options to hyperref
-                colorlinks=true,  % false = boxed links; true = colored links
-                linkcolor=black,  % Internal links
-                urlcolor=black    % External links
-                ]{org-article}
+;; File where customize-* stores settings
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
-\\usemintedstyle{solarizedlight}
-
-% Disabled: Replaced by [minted] arg to org-article.cls
-%\\usepackage{minted}
-%\\newminted{common-lisp}{fontsize=10}
-
-% Allow symbols
-\\usepackage[T1]{fontenc}
-
-% Set fonts
-%\\usepackage{fontspec}
-
-% Disabled: Replaced by [utopia] arg to org-article.cls
-%\\setromanfont{Gentium Basic Bold}
-%\\setromanfont[BoldFont={Gentium Basic Bold},
-%                ItalicFont={Gentium Basic Italic}]{Gentium Basic}
-%\\setsansfont{Charis SIL}
-%\\setmonofont{Inconsolata}
-
-% Fix minted lineno size
-\\renewcommand{\\theFancyVerbLine}{\\sffamily
-    \\textcolor[rgb]{0,0,0}{\\scriptsize
-        \\oldstylenums{\\arabic{FancyVerbLine}}
-    }
-}
-
-% Disabled: Set ToC fonts
-%\\usepackage{tocloft}
-%\\renewcommand*{\\cftsecfont}{\\sffamily\\bfseries}
-%\\renewcommand*{\\cftsecpagefont}{\\sffamily\\bfseries}
-%\\renewcommand*{\\cftsubsecfont}{\\tocmainfont}
-%\\renewcommand*{\\cftsubsecpagefont}{\\tocmainfont}
-
-% http://tex.stackexchange.com/a/136000/23121
-%\\setuptoc{toc}{leveldown}
-
-% NO-DEFAULT-PACKAGES
-[NO-DEFAULT-PACKAGES]
-% PACKAGES
-[PACKAGES]
-% EXTRA
-[EXTRA]
-% END"
-      ("\\section{%s}" . "\\section*{%s}")
-      ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-      ("\\paragraph{%s}" . "\\paragraph*{%s}")
-      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
- '(org-latex-default-class "org-article")
- '(org-latex-with-hyperref nil)
- '(org-latex-listings (quote minted))
- '(org-latex-minted-options
-(quote
- (("breaklines" "true")
-  ("linenos" "")
-  ("frame" "lines"))))
-'(org-latex-pdf-process
-(quote
- ("latexmk -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
- '(org-src-fontify-natively t)
-'(org-src-lang-modes
-(quote
- (("ocaml" . tuareg)
-  ("elisp" . emacs-lisp)
-  ("ditaa" . artist)
-  ("asymptote" . asy)
-  ("dot" . graphviz-dot)
-  ("sqlite" . sql)
-  ("calc" . fundamental)
-  ("C" . c)
-  ("cpp" . c++)
-  ("C++" . c++)
-  ("screen" . shell-script))))
- '(org-startup-with-inline-images t)
- '(solarized-use-variable-pitch nil)
-'(tool-bar-mode nil))
-
-(setq org-capture-templates
-      '(("c" "Clocked item" item (clock)
-	 "%i%U: %?")))
 
 ;; org-mode
+;; -----------------------------------------------------------------------
+
 ;; Show babel-generated inline images automatically
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
 
@@ -179,27 +83,41 @@ the checking happens for all pairs in auto-minor-mode-alist"
       (org-display-inline-images)
     (error nil)))
 
+(require 'org)
+
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (define-key (current-local-map) (kbd "C-c l") 'org-store-link)
-	    (define-key global-map "\C-cc" 'org-capture)))
+	    (define-key global-map (kbd "C-c c") 'org-capture)))
 
+(add-to-list 'org-src-lang-modes '("ipython" . python))
 
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (progn
-	      (load-theme 'solarized-light t)
-	      )))
+(customize-set-variable 'org-agenda-files (list "~/Dropbox/Documents/org/5m/clock/clock.org"))
+(customize-set-variable 'python-shell-interpreter "python3")
 
+(setq org-capture-templates
+      '(("j" "Journal entry" item (file+datetree "~/Dropbox/Documents/org/5m/journal/journal.org")
+	 "* %a \n %i%U: %?")))
 
-(load "graphviz-dot-mode")
+(define-key global-map (kbd "C-c a") 'org-agenda)
+
+(add-to-list 'exec-path "~/.local/bin")
 
 ;; Automaticall save changed buffers when li
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t nil)))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 120 :width normal)))))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ipython . t)
+   (sh . t)
+   ;; other languages..
+   ))
+
+
+;; Mouse scrolling
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+
+;; Smooth scrolling
+(require 'smooth-scrolling)
+(smooth-scrolling-mode 1)

@@ -7,7 +7,7 @@
 
     helm_base: '{{ packages_path }}/helm-{{ helm_version }}'
     helm_bin: helm
-    helm_version: 2.4.2
+    helm_version: 2.7.0
     helm_archive_name: 'helm-v{{ helm_version }}-linux-amd64.tar.gz'
     # The path of the helm binary inside the archive
     helm_archive_bin: linux-amd64/helm
@@ -63,5 +63,6 @@
             path: /etc/NetworkManager/NetworkManager.conf
             insertafter: '\[main\]'
             line: 'dns=none'
+            state: absent
 
 - include: play-input-devices.yaml

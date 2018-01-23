@@ -8,6 +8,6 @@ if echo "$additions" | grep --quiet --ignore-case "$keyword"; then
   # Print file names with offending lines, and the offending lines.
   echo "$additions" \
     | grep --ignore-case "$keyword\|^+++" \
-    | grep --before-context=1 --color=always "$keyword"
+    | grep --before-context=1 --color=always --ignore-case "$keyword"
   exit 1
 fi

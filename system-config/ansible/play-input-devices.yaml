@@ -41,7 +41,7 @@
 
     pointingstick_hwdb:
       event_device: /sys/class/input/event8
-      sensitivity: 255
+      sensitivity: 128
       const_accel: '1.0'
 
     pointingstick_hwdb_config:

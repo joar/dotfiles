@@ -1,10 +1,11 @@
 # joar
-/scratch
+scratch
+.kube-config
 
 # Python
 __pycache__
 *.py[co]
-/.venv
+.venv
 *.egg-info
 
 # Editors
@@ -13,6 +14,9 @@ __pycache__
 
 # py.test
 .cache
+
+# mypy
+.mypy_cache
 
 # coverage
 .coverage
@@ -23,3 +27,6 @@ node_modules
 
 # OpenOffice
 .~lock*
+
+# eslint
+.eslintcache
