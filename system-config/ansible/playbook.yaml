@@ -19,7 +19,20 @@
         speed: 97
         sensitivity: 210
 
+    binaries:
+      dest_dir: '{{ local_bin }}'
+      items:
+        - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc4/runc.amd64
+          dest: runc
+
   tasks:
+
+    - include_tasks: tasks-binaries.yaml
+      with_items: '{{ binaries["items"] }}'
+      # loop_control:
+      #   loop_var: binary
+      tags:
+        - binaries
 
     - tags:
         - helm

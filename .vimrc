@@ -35,6 +35,13 @@ Plug 'itkq/fluentd-vim'  " fluentd config syntax
 Plug 'mustache/vim-mustache-handlebars'  " handlebars and mustache syntax
 Plug 'w0rp/ale'  " async linting engine
 
+Plug 'vim-airline/vim-airline'  " airline
+Plug 'vim-airline/vim-airline-themes' " airline themes
+
+Plug 'sheerun/vim-polyglot'  " language pack
+Plug 'jparise/vim-graphql'
+Plug 'killphi/vim-ebnf'
+
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -154,6 +161,11 @@ nmap ga <Plug>(EasyAlign)
 " ALE
 " ------------------------------------------------------------------------------
 
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_linters = {}
+let g:ale_linters['sh'] = ['shell', 'shellcheck']
+
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['eslint', 'prettier']
 let g:ale_javascript_prettier_use_local_config = 1
@@ -241,7 +253,10 @@ let g:ctrlp_show_hidden = 1
 " Set sqlcomplete omni key to something else than the default '<C-C>'
 let g:ftplugin_sql_omni_key = '<C-Ä>'
 
-" unmap default C-g
+
+" Disable middle mouse paste
+map <MiddleMouse> <Nop>
+imap <MiddleMouse> <Nop>
 
 imap <C-c> <Esc>
 

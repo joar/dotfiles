@@ -32,7 +32,7 @@ set __prompt_color_user $__solarized_blue
 set __prompt_color_host $__solarized_blue
 set __prompt_color_prompt_end $__solarized_blue
 set __prompt_color_kube_context $__solarized_violet
-set __prompt_color_gcloud_project $__solarized_blue
+# set __prompt_color_gcloud_project $__solarized_blue
 
 
 # Configure __fish_git_prompt
@@ -54,6 +54,27 @@ set -g __fish_git_prompt_color_stashstate $__solarized_base0
 set -g __fish_git_prompt_color_upstream $__solarized_blue
 set -g __fish_git_prompt_color_cleanstate $__solarized_green
 
+# Cached values
+set -g ___prompt_cache_initialized
+set -g __prompt_cache_kube_config_context
+# set -g __prompt_cache_gcloud_project
+
+function __prompt_cache_ensure_initialized
+  if test -z "$___prompt_cache_initialized"
+    __prompt_cache_update
+  end
+end
+
+function __prompt_cache_update
+  set ___prompt_cache_initialized "yes"
+  set __prompt_cache_kube_config_context (__prompt_format_kube_config_context)
+  # set __prompt_cache_gcloud_project (__prompt_format_gcloud_project)
+end
+
+function __prompt_cache_update_on_pwd --on-variable PWD
+  __prompt_cache_update
+end
+
 function fish_prompt --description 'Write out the prompt'
   set -g __prompt_last_ret $status
   set -g __prompt_last_duration $CMD_DURATION
@@ -66,6 +87,8 @@ function fish_prompt --description 'Write out the prompt'
   if not set -q __fish_prompt_hostname
     set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
   end
+
+  __prompt_cache_ensure_initialized
 
   # Configurable text
   set -g __prompt_t_user_delimiter "@"
@@ -197,12 +220,12 @@ function __prompt_format_kube_config_context
   end
 end
 
-function __prompt_format_gcloud_project
-  set -l current_project (gcloud config get-value project ^ /dev/null)
-  if test -n "$current_project"
-    printf "%s%s%s" \
-      (set_color $__prompt_color_gcloud_project) \
-      "gcloud:$current_project" \
-      (set_color normal)
-  end
-end
+# function __prompt_format_gcloud_project
+#   set -l current_project (gcloud config get-value project ^ /dev/null)
+#   if test -n "$current_project"
+#     printf "%s%s%s" \
+#       (set_color $__prompt_color_gcloud_project) \
+#       "gcloud:$current_project" \
+#       (set_color normal)
+#   end
+# end

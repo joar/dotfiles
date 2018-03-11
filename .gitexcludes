@@ -14,6 +14,7 @@ __pycache__
 
 # py.test
 .cache
+.pytest_cache
 
 # mypy
 .mypy_cache
@@ -30,3 +31,6 @@ node_modules
 
 # eslint
 .eslintcache
+
+# jupyter/IPython notebook
+.ipynb_checkpoints
