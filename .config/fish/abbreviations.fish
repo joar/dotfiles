@@ -1,42 +1,61 @@
-# xsel
-abbr -a xsel="xsel -ib"
-
-# git
-abbr -a ga="git add"
-abbr -a gaa="git add -A ."
-abbr -a gb="git branch"
-abbr -a gco="git checkout"
-abbr -a gc="git commit -v"
-abbr -a gd="git diff"
-abbr -a gf="git fetch"
-abbr -a lo="git log"
-abbr -a lp="git log -p"
-abbr -a gg="git log --graph --decorate --all"
-abbr -a gog="git log --graph --decorate --all --oneline"
-abbr -a gm="git merge"
-abbr -a gl="git pull"
-abbr -a gp="git push"
-abbr -a gr="git rebase"
-abbr -a gsh="git show"
-abbr -a gst="git status"
-#abbr -a s="git status -sb"
-
-# dotfiles.git
-abbr -a dg="git --git-dir ~/dotfiles.git --work-tree ~"
-
-# coreutils
-abbr -a ll="ls -lah"
-
-# tmux
-abbr -a tmux="tmux -2"
-
-# Django
-abbr -a m="python manage.py"
-abbr -a ms="python manage.py shell"
-
-# docker
-abbr -a dr="docker run --rm -it"
-abbr -a d="docker"
-
-# docker-compose
-abbr -a dc="docker-compose"
+abbr tso 'tmux -2 source'
+abbr denv 'env | grep DOCKER_'
+abbr xsel 'xsel -ib'
+abbr ga 'git add'
+abbr gaa 'git add -A .'
+abbr gl 'git pull'
+abbr gp 'git push'
+abbr gd 'git diff'
+abbr lp 'git log -p'
+abbr gg 'git log --graph --decorate --all'
+abbr gog 'git log --graph --decorate --all --oneline'
+abbr gm 'git merge'
+abbr gc 'git commit -v'
+abbr gr 'git rebase'
+abbr gb 'git branch'
+abbr gf 'git fetch'
+abbr dg 'git --git-dir ~/dotfiles.git --work-tree ~'
+abbr ll 'ls -lah'
+abbr dr 'docker run --rm -it'
+abbr dc docker-compose
+abbr sur 'systemctl --user restart'
+abbr sus 'systemctl --user stop'
+abbr sut 'systemctl --user status'
+abbr dip docker\ inspect\ --format=\'\{\{\ .NetworkSettings.IPAddress\ \}\}\'
+abbr pw 'lpass show --pass -c'
+abbr gu 'git up'
+abbr pf 'ps auxf | less -Sp'
+abbr k kubectl
+abbr pms 'python manage.py shell'
+abbr copy 'xclip -selection c'
+abbr sc 'sudo systemctl'
+abbr scu 'systemctl --user'
+abbr d docker
+abbr di 'git diff --no-index'
+abbr l 'ls -lah'
+abbr lo 'git log'
+abbr e pt-by-fileext
+abbr r 'pt -e --ignore-case'
+abbr mrf 'dig @10.130.170.108'
+abbr b bump-git-tag
+abbr av ansible-vault
+abbr gt 'git stash'
+abbr s 'git status'
+abbr gst 'git status'
+abbr ad ansible-doc
+abbr ai 'sudo apt install'
+abbr as 'sudo apt show'
+abbr o xdg-open
+abbr j 'sudo journalctl'
+abbr sql 'sqlformat --reindent -k upper --comma_first=true -'
+abbr tf terraform
+abbr bd 'base64 -d'
+abbr t tmux
+abbr ap 'ansible-playbook --diff -vv'
+abbr h helm
+abbr q 'jq -C . | less -R'
+abbr y keybase
+abbr R 'less -R'
+abbr i tig
+abbr p pipenv
+abbr co 'git checkout'
