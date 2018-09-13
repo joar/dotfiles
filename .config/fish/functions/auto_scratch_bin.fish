@@ -7,7 +7,7 @@ function auto_scratch_bin --on-variable PWD
         return
     end
 
-    set -l bin_path $git_root"scratch/bin"
+    set -l bin_path $git_root".scratch/bin"
 
     if not test -d "$bin_path"
         return

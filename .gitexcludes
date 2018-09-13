@@ -1,5 +1,6 @@
 # joar
 scratch
+.scratch
 .kube-config
 
 # Python
@@ -34,3 +35,14 @@ node_modules
 
 # jupyter/IPython notebook
 .ipynb_checkpoints
+
+# yarn
+yarn-error.log
+
+.envrc
+
+# pyenv
+.python-version
+
+# pytest-benchmark
+.benchmarks

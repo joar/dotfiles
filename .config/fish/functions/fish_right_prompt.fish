@@ -1,9 +1,8 @@
-if not set -q __prompt_color_duration
-  # load fish_prompt's variables if they aren't set
-  source ~/.config/fish/functions/fish_prompt.fish > /dev/null
-end
+source ~/.config/fish/functions/fish_prompt.fish
 
 function fish_right_prompt
   string join ' ' \
-    "$__prompt_cache_kube_config_context"
+    (__prompt_format_venv) \
+    (__prompt_format_kube_config_context) # \
+    # (__prompt_format_gcloud_project)
 end

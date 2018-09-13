@@ -21,6 +21,12 @@
  '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t))))
  '(org-confirm-babel-evaluate nil)
  '(org-export-headline-levels 6)
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . system))))
  '(org-latex-classes
    (quote
     (("org-article" "
@@ -95,7 +101,7 @@
   ("frame" "lines"))))
 '(org-latex-pdf-process
 (quote
- ("latexmk -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
+ ("latexmk -f -gg -xelatex -interaction=nonstopmode -shell-escape -output-directory=%o %f")))
  '(org-latex-with-hyperref nil)
  '(org-src-fontify-natively t)
 '(org-src-lang-modes

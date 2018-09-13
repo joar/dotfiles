@@ -1,6 +1,6 @@
-# Defined in /tmp/fish.oZFYkE/bump-git-tag.fish @ line 2
+# Defined in /tmp/fish.D1RctQ/bump-git-tag.fish @ line 2
 function bump-git-tag --description 'Bump the git-tagged version' --argument semver_increment semver_preid current_version
-    set -l versions (semver (git tag))
+	set -l versions (semver (git tag))
     set -l autobumped_version
     set -l right_prompt
 
@@ -25,7 +25,7 @@ function bump-git-tag --description 'Bump the git-tagged version' --argument sem
     end
 
     read --local --command "$autobumped_version" \
-        --prompt 'set_color green; printf "test new tag"; set_color normal; echo "> "' \
+        --prompt 'set_color green; printf "new tag"; set_color normal; echo "> "' \
         --right-prompt "echo '$right_prompt'" \
         tag_name
 

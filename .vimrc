@@ -41,6 +41,8 @@ Plug 'vim-airline/vim-airline-themes' " airline themes
 Plug 'sheerun/vim-polyglot'  " language pack
 Plug 'jparise/vim-graphql'
 Plug 'killphi/vim-ebnf'
+Plug 'direnv/direnv.vim'
+Plug 'jamessan/vim-gnupg'  " https://github.com/jamessan/vim-gnupg
 
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
@@ -56,14 +58,14 @@ Plug 'mileszs/ack.vim'
 Plug 'othree/yajs.vim'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'  " more better '.'-repeat
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-sleuth'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-easy-align'  " Indentation, alignment
 Plug 'junegunn/vim-oblique'
-Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-pseudocl' " dependency of vim-fnr
 Plug 'junegunn/vim-fnr' " find and replace
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tommcdo/vim-exchange'
@@ -115,9 +117,8 @@ colorscheme solarized
 " Quickscope
 " ------------------------------------------------------------------------------
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-" let g:qs_first_occurrence_highlight_color = '#afff5f'
-" XXX: None of these seem to work
-let g:qs_first_occurrence_highlight_color = 155       " terminal vim
+" highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+" highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
 " Mouse in terminal
 " ------------------------------------------------------------------------------
@@ -168,7 +169,11 @@ let g:ale_linters['sh'] = ['shell', 'shellcheck']
 
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['eslint', 'prettier']
+
 let g:ale_javascript_prettier_use_local_config = 1
+
+let g:ale_sh_shellcheck_options = '-x'
+
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 

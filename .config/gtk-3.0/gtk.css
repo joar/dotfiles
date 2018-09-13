@@ -1,5 +1,6 @@
 @import url('/home/joar/.local/share/gnome-shell/extensions/no-title-bar@franglais125.gmail.com/stylesheet.css');
 @import url('/home/joar/.local/share/gnome-shell/extensions/no-title-bar@franglais125.gmail.com/stylesheet-tiled.css');
+
 /* Deprecated
 .window-frame,
 .window-frame:backdrop {
@@ -25,7 +26,7 @@ GtkTreeView {
 .header-bar {
     padding-top: 3px;
     padding-bottom: 3px;
-    height: 0px;
+    /* height: 0px; */
 }
 
 .header-bar .button.titlebutton {

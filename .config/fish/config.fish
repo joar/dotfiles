@@ -27,19 +27,23 @@ __fish_config_optional_path ~/google-cloud-sdk/bin
 # end
 __fish_config_optional_path ~/.local/bin
 
+# pyenv
+__fish_config_optional_path ~/.pyenv/bin
+
 # miniconda3
 # __fish_config_optional_path ~/miniconda3/bin
 
-# Disable Python bytecode cache
+# Turn off Python bytecode cache
 # https://docs.python.org/2/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE
-set -gx PYTHONDONTWRITEBYTECODE 1
+# Disabled due to performance concerns
+# set -gx PYTHONDONTWRITEBYTECODE 1
 
 # Mosh default escape
 set -gx MOSH_ESCAPE_KEY \028  # Ctrl-X
 
 # Set TERM and COLORTERM properly
-set -gx TERM xterm-256color
-set -gx COLORTERM gnome-terminal
+#set -gx TERM xterm-256color
+set -gx COLORTERM truecolor
 
 # Run functions that have --on-variable PWD
 auto_scratch_bin
@@ -55,6 +59,12 @@ set -x PIPENV_SHELL_FANCY "not null"
 # pip 9.0.1 from /home/joar/.local/lib/python3.5/site-packages (python 3.5)
 # $ pip install --user virtualfish
 
-eval (/usr/bin/python3.5 -m virtualfish auto_activation global_requirements)
+eval (/usr/bin/python3.6 -m virtualfish auto_activation global_requirements)
 
 eval (direnv hook fish)
+
+# pyenv - XXX: These smims are bad and they should feel bad
+# status --is-interactive; and . (pyenv init -|psub)
+# status --is-interactive; and . (pyenv virtualenv-init -|psub)
+
+set -gx BAT_THEME "Solarized (light)"

@@ -9,7 +9,7 @@
        )))
 
 ;; Installed packages
-(defvar package-lisxt
+(defvar package-list
   '(graphviz-dot-mode
     request-deferred
     org-pomodoro ;; https://github.com/lolownia/org-pomodoro
@@ -30,9 +30,9 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; (dolist (pkg package-list)
-;;  (unless (package-installed-p pkg)
-;;    (package-install pkg)))
+ (dolist (pkg package-list)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
 
 
 ;; org-trello
@@ -121,3 +121,14 @@ the checking happens for all pairs in auto-minor-mode-alist"
 ;; Smooth scrolling
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
+
+;; Open buffers from last session
+
+(require 'desktop)
+(desktop-save-mode 1)
+(defun my-desktop-save ()
+  (interactive)
+  ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+  (if (eq (desktop-owner) (emacs-pid))
+      (desktop-save desktop-dirname)))
+(add-hook 'auto-save-hook 'my-desktop-save)
