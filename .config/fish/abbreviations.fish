@@ -35,7 +35,6 @@ abbr di 'git diff --no-index'
 abbr l 'ls -lah'
 abbr lo 'git log'
 abbr e pt-by-fileext
-abbr r 'pt -e --ignore-case'
 abbr mrf 'dig @10.130.170.108'
 abbr b bump-git-tag
 abbr av ansible-vault
@@ -56,6 +55,17 @@ abbr h helm
 abbr q 'jq -C . | less -R'
 abbr y keybase
 abbr R 'less -R'
-abbr i tig
 abbr p pipenv
 abbr co 'git checkout'
+abbr rm 'rm -I'
+abbr ci 'git commit -v'
+abbr istioctl 'istioctl --kubeconfig (kubectl config view --raw|psub)'
+abbr ic 'istioctl --kubeconfig (kubectl config view --raw|psub)'
+abbr gct 'gcloud container'
+abbr S 'less -S'
+abbr r rg
+abbr pt pytest
+abbr i 'tig status'
+abbr a bat
+abbr c bat
+abbr f fd
