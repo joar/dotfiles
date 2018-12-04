@@ -36,7 +36,8 @@ __fish_config_optional_path ~/.pyenv/bin
 # Turn off Python bytecode cache
 # https://docs.python.org/2/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE
 # Disabled due to performance concerns
-# set -gx PYTHONDONTWRITEBYTECODE 1
+# Enabled due to lack of concern
+set -gx PYTHONDONTWRITEBYTECODE 1
 
 # Mosh default escape
 set -gx MOSH_ESCAPE_KEY \028  # Ctrl-X
