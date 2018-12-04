@@ -11,7 +11,7 @@ Plug 'rust-lang/rust.vim' " rust syntax
 Plug 'vim-scripts/Unicode-RST-Tables' " proper reST tables
 Plug 'elzr/vim-json' " JSON syntax
 Plug 'motemen/git-vim'  " ?
-Plug 'evanmiller/nginx-vim-syntax'  " nginx syntax
+Plug 'rhowardiv/nginx-vim-syntax'  " nginx syntax
 Plug 'dag/vim-fish'  " fish syntax
 Plug 'Glench/Vim-Jinja2-Syntax'  " jinja2 syntax
 " Fork of frankier/neovim-colors-solarized-only with clearly colored comments
@@ -29,6 +29,8 @@ Plug 'danro/rename.vim'  " rename file
 Plug 'fatih/vim-go' " go development plugin
 Plug 'juliosueiras/vim-terraform-completion'  " terraform
 Plug 'mhinz/vim-signify'  " show git changes
+" requirements.txt syntax
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
 Plug 'sbdchd/neoformat'  " code formatting
 Plug 'itkq/fluentd-vim'  " fluentd config syntax
