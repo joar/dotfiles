@@ -55,7 +55,6 @@ abbr h helm
 abbr q 'jq -C . | less -R'
 abbr y keybase
 abbr R 'less -R'
-abbr p pipenv
 abbr co 'git checkout'
 abbr rm 'rm -I'
 abbr ci 'git commit -v'
@@ -69,3 +68,6 @@ abbr i 'tig status'
 abbr a bat
 abbr c bat
 abbr f fd
+abbr gio 'git open'
+abbr g git
+abbr pe pipenv
