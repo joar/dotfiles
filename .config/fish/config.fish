@@ -30,6 +30,9 @@ __fish_config_optional_path ~/.local/bin
 # pyenv
 __fish_config_optional_path ~/.pyenv/bin
 
+# yarn
+__fish_config_optional_path ~/.yarn/bin
+
 # miniconda3
 # __fish_config_optional_path ~/miniconda3/bin
 
