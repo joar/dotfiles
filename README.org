@@ -1,29 +1,16 @@
 * dotfiles
   A git setup for dotfiles, with my dotfiles.
+  
+  Based on https://github.com/lydell/dotfiles
 ** Setup
-   to set up this kind of repository, run
-
-#+BEGIN_SRC bash
-git --git-dir ~/dotfiles.git --work-tree ~
-#+END_SRC
    
-   then cr
 
-** Executing git commands
-   There are a few alternatives
-*** Using GIT_DIR
-    #+BEGIN_SRC sh
-      env GIT_DIR=~/dotfiles.git git status
-      # or
-      export GIT_DIR=~/dotfiles.git
-      git status
-    #+END_SRC
-*** Using --git-dir
-    #+BEGIN_SRC sh
-      git --git-dir ~/dotfiles.git status
-    #+END_SRC
-*** Using working directory
-    #+BEGIN_SRC sh
-      cd ~/dotfiles.git
-      git status    
-    #+END_SRC
+#+BEGIN_SRC console
+$ cd location/of/choice
+$ git clone --no-checkout https://github.com/joar/dotfiles.git
+$ cd dotfiles
+$ mkdir .git/info
+$ echo '*' > .git/info/exclude
+$ git config core.worktree "$HOME"
+$ git checkout master # --force if you know what you’re doing.
+#+END_SRC
