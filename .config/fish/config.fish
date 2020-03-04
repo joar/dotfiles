@@ -51,8 +51,9 @@ set -gx COLORTERM truecolor
 
 # Run functions that have --on-variable PWD
 auto_scratch_bin
-auto_node_modules_bin
 auto_kube_config
+
+set -gx NPM_PACKAGES "$HOME/.npm-packages"
 
 # Use `--fancy` by default when running `pipenv shell`
 set -x PIPENV_SHELL_FANCY "not null"
@@ -72,3 +73,6 @@ eval (direnv hook fish)
 # status --is-interactive; and . (pyenv virtualenv-init -|psub)
 
 set -gx BAT_THEME "Solarized (light)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/joar/google-cloud-sdk/path.fish.inc' ]; . '/home/joar/google-cloud-sdk/path.fish.inc'; end

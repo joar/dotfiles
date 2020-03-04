@@ -31,6 +31,11 @@ Plug 'juliosueiras/vim-terraform-completion'  " terraform
 Plug 'mhinz/vim-signify'  " show git changes
 " requirements.txt syntax
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+" Patch review mode
+Plug 'junkblocker/patchreview-vim'
+
+" Don't want to talk about it
+Plug 'eiginn/iptables-vim'
 
 Plug 'sbdchd/neoformat'  " code formatting
 Plug 'itkq/fluentd-vim'  " fluentd config syntax
@@ -45,6 +50,13 @@ Plug 'jparise/vim-graphql'
 Plug 'killphi/vim-ebnf'
 Plug 'direnv/direnv.vim'
 Plug 'jamessan/vim-gnupg'  " https://github.com/jamessan/vim-gnupg
+
+Plug 'SirVer/ultisnips' " snippets
+Plug 'honza/vim-snippets' " ultisnips dependency
+
+Plug 'hwayne/tla.vim' " TLA+ and PlusCal syntax
+
+Plug 'aklt/plantuml-syntax'
 
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
@@ -319,6 +331,15 @@ nmap <leader>t :call ToggleBackground()<cr>
 cnoreabbrev W w
 cnoreabbrev Wq wq
 
+" Clipboard
+" ------------------------------------------------------------------------------
+
+" let g:clipboard = {
+"       \ ''
+"       \ '+' = 'xsel --nodetach -i -b'
+"       \ '*': 'xsel --nodetach -i -p'
+"       \ '+': 'xsel -o -b'
+"       \ '*': 'xsel -o -p'
 " Ctrl-{a,c,v} stand-in
 " Copy register " to * and +
 nnoremap <a-y> :let @*=@"\|let @+=@"<cr>
@@ -327,7 +348,8 @@ vmap <a-y> y<a-y>
 " Map insert mode <a-r> to a paste from system clipboard
 inoremap <a-r> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
 
-""" Helper functions
+" Helper functions
+" ------------------------------------------------------------------------------
 function! ChompedSystem( ... )
     return substitute(call('system', a:000), '\n\+$', '', '')
 endfunction
@@ -389,6 +411,16 @@ autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 augroup END
 
+" UltiSnips
+" ==============================================================================
+
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/ultisnips', 'ultisnips']
+
+
 " Functions
 " ==============================================================================
 
@@ -406,6 +438,15 @@ function! HorizontalRuler()
   " start insert at end of line
   let bang = wasAtEOL ? '!' : ''
   execute 'startinsert' . bang
+endfunction
+
+" Copy abspath and line number to clipboard
+" ------------------------------------------------------------------------------
+
+nnoremap <leader>l :call CopyAbsPathAndLineNo()<cr>
+
+function! CopyAbsPathAndLineNo()
+  let @+=expand('%:p') . ':' . line('.')
 endfunction
 
 " ToggleBackground
