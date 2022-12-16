@@ -1,1 +1,0 @@
-/home/joar/.vimrc

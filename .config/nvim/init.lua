@@ -1,108 +1,27 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  HELLO JOAR
-"         DON'T FORGET THAT YOU SWITCHED TO ~/.config/nvim/init.lua
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+local cmd = vim.cmd
+local create_cmd = vim.api.nvim_create_user_command
+create_cmd('PackerInstall', function()
+  cmd [[packadd packer.nvim]]
+  require('plugins').install()
+end, {})
+create_cmd('PackerUpdate', function()
+  cmd [[packadd packer.nvim]]
+  require('plugins').update()
+end, {})
+create_cmd('PackerSync', function()
+  cmd [[packadd packer.nvim]]
+  require('plugins').sync()
+end, {})
+create_cmd('PackerClean', function()
+  cmd [[packadd packer.nvim]]
+  require('plugins').clean()
+end, {})
+create_cmd('PackerCompile', function()
+  cmd [[packadd packer.nvim]]
+  require('plugins').compile()
+end, {})
 
-" Some plugins require this to be set before they are loaded.
-set nocompatible
-
-" let python = '/usr/bin/python3'
-
-""" Plugins
-call plug#begin('~/.vim/bundles')
-
-" From joar
-Plug 'lambdalisue/suda.vim' " sudo write/read for when you accidentally haven't sudo nvim'd
-Plug 'm-pilia/vim-pkgbuild' " PKGBUILD syntax
-Plug 'rust-lang/rust.vim' " rust syntax
-Plug 'vim-scripts/Unicode-RST-Tables' " proper reST tables
-Plug 'elzr/vim-json' " JSON syntax
-Plug 'motemen/git-vim'  " ?
-Plug 'rhowardiv/nginx-vim-syntax'  " nginx syntax
-Plug 'dag/vim-fish'  " fish syntax
-Plug 'Glench/Vim-Jinja2-Syntax'  " jinja2 syntax
-Plug 'Pocco81/auto-save.nvim' " auto-save
-" Fork of frankier/neovim-colors-solarized-only with clearly colored comments
-Plug 'joar/vim-colors-solarized'
-Plug 'justinmk/vim-sneak' " jumps to any location specified by two characters
-Plug 'unblevable/quick-scope' " highlights targets for `f`, `F` and family
-Plug 'hynek/vim-python-pep8-indent'
-Plug 'brooth/far.vim' " Find and replace in multiple files
-Plug 'cespare/vim-toml' " cargo TOML files
-" Plug 'tpope/fugitive' " git
-Plug 'kien/ctrlp.vim' " buffer/file/tag finder
-Plug 'vito-c/jq.vim' " jq syntax
-Plug 'danro/rename.vim'  " rename file
-" Plug 'stephpy/vim-yaml'  " better YAML syntax -- ^W^W^W worse YAML syntax
-Plug 'fatih/vim-go' " go development plugin
-Plug 'juliosueiras/vim-terraform-completion'  " terraform
-Plug 'mhinz/vim-signify'  " show git changes
-" requirements.txt syntax
-Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-" Patch review mode
-"
-Plug 'editorconfig/editorconfig-vim' " editorconfig support
-
-Plug 'junkblocker/patchreview-vim'
-
-" Don't want to talk about it
-Plug 'eiginn/iptables-vim'
-
-Plug 'sbdchd/neoformat'  " code formatting
-Plug 'itkq/fluentd-vim'  " fluentd config syntax
-Plug 'mustache/vim-mustache-handlebars'  " handlebars and mustache syntax
-Plug 'dense-analysis/ale'  " async linting engine
-
-Plug 'vim-airline/vim-airline'  " airline
-Plug 'vim-airline/vim-airline-themes' " airline themes
-
-Plug 'sheerun/vim-polyglot'  " language pack
-Plug 'jparise/vim-graphql'
-Plug 'killphi/vim-ebnf'
-Plug 'direnv/direnv.vim'
-Plug 'jamessan/vim-gnupg'  " https://github.com/jamessan/vim-gnupg
-
-Plug 'SirVer/ultisnips' " snippets
-Plug 'honza/vim-snippets' " ultisnips dependency
-
-Plug 'hwayne/tla.vim' " TLA+ and PlusCal syntax
-
-Plug 'aklt/plantuml-syntax'
-
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'rcarriga/nvim-notify'
-Plug 'cfmeyers/dbt.nvim'
-
-" From lydell
-Plug 'AndrewRadev/inline_edit.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ap/vim-css-color'
-Plug 'ap/vim-you-keep-using-that-word'
-Plug 'bkad/CamelCaseMotion'
-Plug 'jamessan/vim-gnupg'
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'  " more better '.'-repeat
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-sleuth'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/vim-easy-align'  " Indentation, alignment
-Plug 'junegunn/vim-oblique'
-Plug 'junegunn/vim-pseudocl' " dependency of vim-fnr
-Plug 'junegunn/vim-fnr' " find and replace
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tommcdo/vim-exchange'
-Plug 'wellle/targets.vim'
-Plug 'whatyouhide/vim-lengthmatters'  " highlights text that overflows textwidth
-Plug 'kchmck/vim-coffee-script'
-Plug 'terryma/vim-multiple-cursors'
-
-call plug#end()
-
+vim.cmd([[
 " Appearance & Interface
 " ------------------------------------------------------------------------------
 
@@ -300,9 +219,6 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
-" DBT
-nnoremap <buffer> gd :DBTGoToDefinition<CR>
-
 " <leader> Mappings
 " ------------------------------------------------------------------------------
 
@@ -465,3 +381,4 @@ if exists('$WAYLAND_DISPLAY')
         \   'cache_enabled': 1,
         \ }
 endif
+]])
