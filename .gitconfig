@@ -10,6 +10,7 @@
 	signingkey = C5BFD16A33ED24C1
 [push]
 	default = simple
+	autoSetupRemote = true
 [alias]
 	co = checkout
 	br = branch
@@ -20,6 +21,7 @@
 	date = iso
 [init]
 	templatedir = /home/joar/.config/git-templates
+	defaultBranch = main
 [rerere]
 	enabled = true
 [commit]
@@ -28,3 +30,15 @@
 	forceSignAnnotated = true
 [tig]
 	# mouse = yes
+[pull]
+	ff = only
+[merge]
+	conflictstyle = diff3
+[github]
+	oauth-token = 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
+	user = joar
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

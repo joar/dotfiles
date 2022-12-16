@@ -12,10 +12,9 @@ end
 __fish_config_optional_path ~/.cargo/bin
 
 # golang
-set -gx GOROOT ~/src/go
-__fish_config_optional_path ~/src/go/bin
-
-# default GOPATH
+set -gx GOROOT /usr/lib/go
+__fish_config_optional_path ~/go/go1.17/bin
+# go install $cmd bins
 __fish_config_optional_path ~/go/bin
 
 # Google Cloud SDK
@@ -32,6 +31,12 @@ __fish_config_optional_path ~/.pyenv/bin
 
 # yarn
 __fish_config_optional_path ~/.yarn/bin
+
+# snap
+__fish_config_optional_path /snap/bin
+
+# JetBrains IDEs
+__fish_config_optional_path ~/.local/share/JetBrains/Toolbox/scripts
 
 # miniconda3
 # __fish_config_optional_path ~/miniconda3/bin
@@ -50,8 +55,6 @@ set -gx MOSH_ESCAPE_KEY \028  # Ctrl-X
 set -gx COLORTERM truecolor
 
 # Run functions that have --on-variable PWD
-auto_scratch_bin
-auto_kube_config
 
 set -gx NPM_PACKAGES "$HOME/.npm-packages"
 
@@ -63,16 +66,24 @@ set -x PIPENV_SHELL_FANCY "not null"
 # $ pip --version
 # pip 9.0.1 from /home/joar/.local/lib/python3.5/site-packages (python 3.5)
 # $ pip install --user virtualfish
-
-eval (/usr/bin/python3.6 -m virtualfish auto_activation global_requirements)
+set --universal VIRTUAL_ENV_DISABLE_PROMPT "yes"
 
 eval (direnv hook fish)
 
-# pyenv - XXX: These smims are bad and they should feel bad
-# status --is-interactive; and . (pyenv init -|psub)
-# status --is-interactive; and . (pyenv virtualenv-init -|psub)
-
 set -gx BAT_THEME "Solarized (light)"
 
+# gcloud overrides
+set -gx CLOUDSDK_PYTHON_SITEPACKAGES 1
+set -gx CLOUDSDK_PYTHON /usr/bin/python
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/joar/google-cloud-sdk/path.fish.inc' ]; . '/home/joar/google-cloud-sdk/path.fish.inc'; end
+
+# pyenv
+status is-interactive; and pyenv init --path | source
+pyenv init - | source
+
+# pyenv-virtualenv
+status --is-interactive; and pyenv virtualenv-init - | source
+
+# https://wiki.archlinux.org/title/Git#Signing_commits
+set -x GPG_TTY (tty)

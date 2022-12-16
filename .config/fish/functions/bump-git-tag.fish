@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.D1RctQ/bump-git-tag.fish @ line 2
+# Defined in /tmp/fish.4OTN80/bump-git-tag.fish @ line 2
 function bump-git-tag --description 'Bump the git-tagged version' --argument semver_increment semver_preid current_version
 	set -l versions (semver (git tag))
     set -l autobumped_version
@@ -11,7 +11,7 @@ function bump-git-tag --description 'Bump the git-tagged version' --argument sem
 
     if test -n "$versions"
         if test -z "$semver_increment"
-            set semver_increment 'prerelease'
+            set semver_increment 'premajor'
         end
 
         set -l semver_args --increment $semver_increment

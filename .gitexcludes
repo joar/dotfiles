@@ -10,7 +10,6 @@ __pycache__
 *.egg-info
 
 # Editors
-/.idea
 *~
 
 # py.test

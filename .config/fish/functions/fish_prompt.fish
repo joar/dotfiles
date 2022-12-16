@@ -40,7 +40,7 @@ set -g __fish_git_prompt_show_informative_status 1
 set -g __fish_git_prompt_showdirtystate 1
 set -g __fish_git_prompt_showstashstate 1
 set -g __fish_git_prompt_showuntrackedfiles 1
-set -g __fish_git_prompt_showupstream 1
+set -g __fish_git_prompt_showupstream verbose
 set -g __fish_git_prompt_describe_style contains
 
 # __fish_git_prompt's colors
@@ -53,6 +53,7 @@ set -g __fish_git_prompt_color_untrackedfiles $__solarized_yellow
 set -g __fish_git_prompt_color_stashstate $__solarized_base0
 set -g __fish_git_prompt_color_upstream $__solarized_blue
 set -g __fish_git_prompt_color_cleanstate $__solarized_green
+set -g __fish_git_prompt_color_stashstate $_solarized_base02
 
 function fish_prompt --description 'Write out the prompt'
   set -g __prompt_last_ret $status

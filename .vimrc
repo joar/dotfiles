@@ -1,12 +1,14 @@
 " Some plugins require this to be set before they are loaded.
 set nocompatible
 
-let python = '/usr/bin/python3'
+" let python = '/usr/bin/python3'
 
 """ Plugins
 call plug#begin('~/.vim/bundles')
 
 " From joar
+Plug 'lambdalisue/suda.vim' " sudo write/read for when you accidentally haven't sudo nvim'd
+Plug 'm-pilia/vim-pkgbuild' " PKGBUILD syntax
 Plug 'rust-lang/rust.vim' " rust syntax
 Plug 'vim-scripts/Unicode-RST-Tables' " proper reST tables
 Plug 'elzr/vim-json' " JSON syntax
@@ -14,6 +16,8 @@ Plug 'motemen/git-vim'  " ?
 Plug 'rhowardiv/nginx-vim-syntax'  " nginx syntax
 Plug 'dag/vim-fish'  " fish syntax
 Plug 'Glench/Vim-Jinja2-Syntax'  " jinja2 syntax
+Plug 'Pocco81/auto-save.nvim' " auto-save
+Plug 'ivanovyordan/dbt.vim' " dbt
 " Fork of frankier/neovim-colors-solarized-only with clearly colored comments
 Plug 'joar/vim-colors-solarized'
 Plug 'justinmk/vim-sneak' " jumps to any location specified by two characters
@@ -32,6 +36,9 @@ Plug 'mhinz/vim-signify'  " show git changes
 " requirements.txt syntax
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 " Patch review mode
+"
+Plug 'editorconfig/editorconfig-vim' " editorconfig support
+
 Plug 'junkblocker/patchreview-vim'
 
 " Don't want to talk about it
@@ -40,7 +47,7 @@ Plug 'eiginn/iptables-vim'
 Plug 'sbdchd/neoformat'  " code formatting
 Plug 'itkq/fluentd-vim'  " fluentd config syntax
 Plug 'mustache/vim-mustache-handlebars'  " handlebars and mustache syntax
-Plug 'w0rp/ale'  " async linting engine
+Plug 'dense-analysis/ale'  " async linting engine
 
 Plug 'vim-airline/vim-airline'  " airline
 Plug 'vim-airline/vim-airline-themes' " airline themes
@@ -61,15 +68,12 @@ Plug 'aklt/plantuml-syntax'
 " From lydell
 Plug 'AndrewRadev/inline_edit.vim'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'AndrewRadev/undoquit.vim'
 Plug 'ap/vim-css-color'
 Plug 'ap/vim-you-keep-using-that-word'
 Plug 'bkad/CamelCaseMotion'
-Plug 'groenewege/vim-less' " LESS syntax
 Plug 'jamessan/vim-gnupg'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'mileszs/ack.vim'
-Plug 'othree/yajs.vim'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'  " more better '.'-repeat
@@ -83,7 +87,6 @@ Plug 'junegunn/vim-pseudocl' " dependency of vim-fnr
 Plug 'junegunn/vim-fnr' " find and replace
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tommcdo/vim-exchange'
-Plug 'Valloric/YouCompleteMe', { 'do': python . ' ./install.py' }
 Plug 'wellle/targets.vim'
 Plug 'whatyouhide/vim-lengthmatters'  " highlights text that overflows textwidth
 Plug 'kchmck/vim-coffee-script'
@@ -142,7 +145,6 @@ set mouse=a
 " ------------------------------------------------------------------------------
 
 if has('nvim')
-  "let g:python_host_prog = '/usr/bin/python'
   let g:python3_host_prog = '/usr/bin/python3'
 endif
 
@@ -255,9 +257,14 @@ set nrformats-=octal
 set showcmd
 set splitbelow
 set splitright
-set textwidth=80
 set wildmenu
 set wildmode=list:longest,full
+
+" Line length
+" ----------------------------------------------------------------------------
+
+set textwidth=80
+let g:lengthmatters_highlight_one_column = 1
 
 " CtrlP
 " ------------------------------------------------------------------------------
@@ -354,41 +361,6 @@ function! ChompedSystem( ... )
     return substitute(call('system', a:000), '\n\+$', '', '')
 endfunction
 
-""" fzf
-" map <leader>n :FZF<cr>
-" map <leader>? :FZF<space>
-" map <silent> <leader>l :execute 'FZF'
-"     \ ChompedSystem('repo-root --cwd=' . shellescape(expand('%')))<cr>
-
-" function! FZF()
-"   return printf('xterm -T fzf'
-"     \ .' -bg "\%s" -fg "\%s"'
-"     \ .' -fa "%s" -fs %d'
-"     \ .' -geometry %dx%d+%d+%d -e bash -ic %%s',
-"     \ synIDattr(hlID("Normal"), "bg"), synIDattr(hlID("Normal"), "fg"),
-"     \ 'Monospace', getfontname()[-2:],
-"     \ &columns, &lines/2, getwinposx(), getwinposy())
-" endfunction
-" let g:Fzf_launcher = function('FZF')
-
-
-""" YCM
-let g:ycm_path_to_python_interpreter = python
-let g:ycm_filetype_blacklist = {}
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_key_list_select_completion = ['<tab>']
-let g:ycm_key_list_previous_completion = ['<s-tab>']
-let g:ycm_key_invoke_completion = '<c-tab>'
-let g:ycm_key_detailed_diagnostics = ''
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_semantic_triggers = {
-  \   'elm' : ['.'],
-  \ }
-nnoremap <silent> <leader>g :YcmCompleter GoTo<cr>
-
-
 " Status line
 " ==============================================================================
 set laststatus=2
@@ -461,3 +433,23 @@ function! ToggleBackground()
     set background=light
   end
 endfunction
+
+" Wayland clipboard provider that strips carriage returns (GTK3 issue).
+" This is needed because currently there's an issue where GTK3 applications on
+" Wayland contain carriage returns at the end of the lines (this is a root
+" issue that needs to be fixed).
+if exists('$WAYLAND_DISPLAY')
+    " clipboard on wayland with newline fix
+    let g:clipboard = {
+        \   'name': 'WL-Clipboard with ^M Trim',
+        \   'copy': {
+        \      '+': 'wl-copy --foreground --type text/plain',
+        \      '*': 'wl-copy --foreground --type text/plain --primary',
+        \    },
+        \   'paste': {
+        \      '+': {-> systemlist('wl-paste --no-newline --type "text/plain;charset=utf-8" 2>/dev/null | sed -e "s/\\r\$//"', '', 1)},
+        \      '*': {-> systemlist('wl-paste --no-newline --type "text/plain;charset=utf-8" --primary 2>/dev/null | sed -e "s/\r\\$//"', '', 1)},
+        \   },
+        \   'cache_enabled': 1,
+        \ }
+endif

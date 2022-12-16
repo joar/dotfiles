@@ -16,14 +16,14 @@ end
 
 function fish_title --argument command
 	set -l pwd (pwd)
-	set -l title (string join "•" $command (__fish_title_format_pwd normal))
+	set -l title (string join " • " $command (__fish_title_format_pwd normal))
 	if test -z "$command"
 		__fish_title_format_pwd basename_first
 		return
 	end
 
 	if test (string length "$title") -gt 30
-		set title (string join "•" $command (__fish_title_format_pwd basename_first))
+		set title (string join " • " $command (__fish_title_format_pwd basename_first))
 	end
 	echo "$title"
 end
