@@ -42,3 +42,7 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[select-branch]
+	fuzzy = true
+	limit = none
+	show-remote-branches = true

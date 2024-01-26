@@ -21,6 +21,13 @@ create_cmd('PackerCompile', function()
   require('plugins').compile()
 end, {})
 
+local map = vim.api.nvim_set_keymap
+
+
+vim.cmd([[
+    au BufRead,BufNewFile *.sql        nnoremap <buffer> gd :DBTGoToDefinition<CR>
+]])
+
 vim.cmd([[
 " Appearance & Interface
 " ------------------------------------------------------------------------------
@@ -52,7 +59,7 @@ let &t_EI .= "\<Esc>[3 q"
 " Colorscheme
 " ------------------------------------------------------------------------------
 
-set background=light
+set background=dark
 
 let g:solarized_italic = 0  " disable italic text
 set termguicolors  " enable true color

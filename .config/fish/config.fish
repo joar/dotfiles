@@ -17,9 +17,6 @@ __fish_config_optional_path ~/go/go1.17/bin
 # go install $cmd bins
 __fish_config_optional_path ~/go/bin
 
-# Google Cloud SDK
-__fish_config_optional_path ~/google-cloud-sdk/bin
-
 # XDG local bin
 # if status --is-login
 #     set -gx PATH ~/.local/bin $PATH
@@ -75,9 +72,7 @@ set -gx BAT_THEME "Solarized (light)"
 # gcloud overrides
 set -gx CLOUDSDK_PYTHON_SITEPACKAGES 1
 set -gx CLOUDSDK_PYTHON /usr/bin/python
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/joar/google-cloud-sdk/path.fish.inc' ]; . '/home/joar/google-cloud-sdk/path.fish.inc'; end
-
+set -gx USE_GKE_GCLOUD_AUTH_PLUGIN True
 # pyenv
 status is-interactive; and pyenv init --path | source
 pyenv init - | source
@@ -87,3 +82,6 @@ status --is-interactive; and pyenv virtualenv-init - | source
 
 # https://wiki.archlinux.org/title/Git#Signing_commits
 set -x GPG_TTY (tty)
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/joar/google-cloud-sdk/path.fish.inc' ]; . '/home/joar/google-cloud-sdk/path.fish.inc'; end

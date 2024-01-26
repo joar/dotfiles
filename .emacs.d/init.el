@@ -93,7 +93,8 @@
 	 "* %a \n %i%U: %?")))
 
 (define-key global-map (kbd "C-c a") 'org-agenda)
-
+(add-to-list 'org-structure-template-alist
+             '("s" "#+NAME: ?\n#+BEGIN_SRC \n\n#+END_SRC"))
 (add-to-list 'exec-path "~/.local/bin")
 
 ;; Automaticall save changed buffers when li
