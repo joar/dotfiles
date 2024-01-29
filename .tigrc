@@ -1,0 +1,4 @@
+bind status C !git commit -v
+bind status V !git commit -v --no-verify
+bind status a !git commit -v --amend '-S'
+bind status A !git commit -v --no-verify --amend '-S'
