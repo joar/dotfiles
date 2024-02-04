@@ -1,0 +1,20 @@
+" Turn off sounds
+" https://superuser.com/a/677312/68997
+set visualbell
+set noerrorbells
+
+set ignorecase smartcase
+
+set surround
+set commentary
+set easymotion
+
+let mapleader = "å"
+
+nnoremap <Leader>i :s/\v\.get\(([^)]+)\)/[\1]/<CR>
+nmap <leader>x :echo 'hello'
+map m <Plug>(easymotion-prefix)
+map <leader>a :action $SelectAll<CR>
+map <leader>c :action $Copy<CR>
+map <leader>v :action $Paste<CR>
+map <leader>x :action $Cut<CR>
