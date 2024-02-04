@@ -1,3 +1,16 @@
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 local cmd = vim.cmd
 local create_cmd = vim.api.nvim_create_user_command
 create_cmd('PackerInstall', function()
@@ -63,7 +76,11 @@ set background=dark
 
 let g:solarized_italic = 0  " disable italic text
 set termguicolors  " enable true color
-colorscheme solarized
+try
+  colorscheme solarized
+catch
+  echo "Failed to set color scheme"
+endtry
 
 
 " Quickscope

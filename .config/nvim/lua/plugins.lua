@@ -107,7 +107,6 @@ local function init()
     use 'ap/vim-css-color'
     use 'ap/vim-you-keep-using-that-word'
     use 'bkad/CamelCaseMotion'
-    use 'jamessan/vim-gnupg'
     use 'mileszs/ack.vim'
     use 'tpope/vim-characterize'
     use 'tpope/vim-commentary'
